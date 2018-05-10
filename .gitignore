@@ -10,4 +10,5 @@ pubspec.lock
 .flutter-plugins
 key.jks
 android/app/google-services.json
+android/key.properties
 *.iml
