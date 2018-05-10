@@ -4,10 +4,7 @@ A workout app for Android written in Flutter and Firebase.
 
 [Download on the Play store](https://play.google.com/store/apps/details?id=de.fmutzel.knuffiworkout)
 
-![Screenshot of current workout view](screenshots/current.png)
-![Screenshot of exercise customization](screenshots/exercises.png)
-![Screenshot of past view](screenshots/past.png)
-![Screenshot of progress chart](screenshots/progress.png)
+<img src="screenshots/current.png" width="200px"> <img src="screenshots/exercises.png" width="200px"> <img src="screenshots/past.png" width="200px"> <img src="screenshots/progress.png" width="200px">
 
 ## Getting Started
 
