@@ -45,6 +45,11 @@ The built_value file `model.g.dart` can be regenerated from `model.dart` using
 flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
 
+### Building a release build
+For signing release builds, you need a keystore and some additional information in `android/key.properties`.
+
+Instructions can be found on the [Flutter homepage](https://flutter.io/android-release/) under "Signing the app".
+
 ## Feature wishlist
 * Use charts_flutter instead of custom drawn charts
 * Presets for other popular workouts (5x5, Starting Strength, ...)
