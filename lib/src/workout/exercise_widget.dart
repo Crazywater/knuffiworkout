@@ -10,6 +10,9 @@ import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:knuffiworkout/src/workout/weight_widget.dart';
 import 'package:meta/meta.dart';
 
+/// Callback invoked when a [WorkoutSet] changes.
+///
+/// [setIndex] is the index of [set] in the list of sets for the exercise.
 typedef void SetSaver(int setIndex, WorkoutSet set);
 
 /// Widget to edit data about an exercise, consisting of:

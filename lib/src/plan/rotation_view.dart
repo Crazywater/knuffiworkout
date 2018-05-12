@@ -9,6 +9,8 @@ import 'package:knuffiworkout/src/plan/day_widget.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 
 /// Configuration view for the rotation.
+///
+/// In this view, the user configures the rotation of exercises across [Day]s.
 class RotationView extends StatefulWidget {
   @override
   _RotationViewState createState() => new _RotationViewState();

@@ -16,6 +16,7 @@ void main() {
   runApp(new App());
 }
 
+/// The main Knuffiworkout app widget.
 class App extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _AppState();
@@ -67,6 +68,8 @@ class _AppState extends State<App> {
   }
 }
 
+/// A splash screen with an animation that is rendered while Firebase
+/// initializes.
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new SplashScreenState();

@@ -8,6 +8,13 @@ import 'package:rxdart/rxdart.dart';
 
 typedef T Deserializer<T>(Map json);
 
+/// Turns a Firebase [Query] into a [Stream] of sorted [FireMap]s.
+///
+/// This adapter subscribes to any changes on the given [Query] and keeps a
+/// sorted mapping from [String] key to value in a [FireMap].
+///
+/// On every change, the [FireMap] is updated and [stream] emits the new
+/// current state.
 class FirebaseAdapter<T> {
   final _subject = new BehaviorSubject<FireMap<T>>();
   final Query _query;
@@ -21,8 +28,16 @@ class FirebaseAdapter<T> {
       {@required Comparator<T> comparator})
       : _comparator = comparator;
 
+  /// An [Observable] which emits the full state of the [Query] in a [FireMap]
+  /// on every change.
+  ///
+  /// This stream fires once on subscription with the current state, and then
+  /// again on every change.
   Observable<FireMap<T>> get stream => _subject.stream;
 
+  /// Starts listening on the given query.
+  ///
+  /// Emits the initial state in [stream].
   Future<Null> open() async {
     assert(_subscriptions == null, "Already open!");
 
@@ -49,6 +64,7 @@ class FirebaseAdapter<T> {
     _subject.add(_map);
   }
 
+  /// Stops listening to updates on the [Query] and closes [stream].
   void close() {
     for (final subscription in _subscriptions) {
       subscription.cancel();
@@ -58,6 +74,7 @@ class FirebaseAdapter<T> {
   }
 }
 
+/// A read-only sorted map that is backed by Firebase.
 class FireMap<T> {
   final _map = <String, T>{};
   final _sortedKeys = <String>[];

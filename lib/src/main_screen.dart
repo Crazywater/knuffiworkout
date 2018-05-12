@@ -92,14 +92,22 @@ class _MainScreenState extends State<MainScreen> {
 
 /// A View in the [MainScreen].
 class _View {
+  /// Title of the view in the app bar.
   final String title;
+
+  /// How to render this view in the app drawer.
   final _DrawerConfig drawerConfig;
+
+  /// [WidgetBuilder] that builds the view.
   final WidgetBuilder builder;
+
+  /// How to render a FAB for the view, if any.
   final _FabBuilder fabBuilder;
 
   _View(this.title, this.drawerConfig, this.builder, {this.fabBuilder});
 }
 
+/// Configuration of how the view should be shown in the app drawer.
 class _DrawerConfig {
   final IconData icon;
   final bool hasDividerAfter;
@@ -107,6 +115,7 @@ class _DrawerConfig {
   _DrawerConfig({@required this.icon, this.hasDividerAfter = false});
 }
 
+/// Renders a floating plus button (FAB).
 FloatingActionButton renderFab({VoidCallback onPressed}) =>
     new FloatingActionButton(
         backgroundColor: fabColor,

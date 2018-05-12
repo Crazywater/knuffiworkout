@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 
+/// A point in the [ProgressChart].
 class ChartPoint {
   final DateTime date;
   final double value;
@@ -12,6 +13,7 @@ class ChartPoint {
   ChartPoint(this.date, this.value);
 }
 
+/// A simple line chart widget.
 class ProgressChart extends StatelessWidget {
   final List<ChartPoint> points;
 
@@ -22,6 +24,7 @@ class ProgressChart extends StatelessWidget {
       new CustomPaint(painter: new ChartPainter(points));
 }
 
+/// [CustomPainter] to draw the [ProgressChart].
 class ChartPainter extends CustomPainter {
   /// Actual data points.
   final List<ChartPoint> entries;

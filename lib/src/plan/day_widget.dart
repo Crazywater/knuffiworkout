@@ -7,11 +7,23 @@ import 'package:knuffiworkout/src/widgets/mini_fab.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:meta/meta.dart';
 
+/// Renders a [Day] in the rotation configuration.
 class DayWidget extends StatelessWidget {
+  /// All [PlannedExercise]s.
   final FireMap<PlannedExercise> _exercises;
+
+  /// Values of [_exercises], but sorted by name.
+  ///
+  /// This is used to render them in alphabetical order.
   final List<PlannedExercise> _sortedExercises;
+
+  /// All [Day]s.
   final List<Day> _workouts;
+
+  /// Index in [_workouts] to render.
   final int _index;
+
+  /// Index in [_workouts] of the next exercise day.
   final int _nextRotationIndex;
 
   DayWidget(

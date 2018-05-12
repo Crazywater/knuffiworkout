@@ -9,10 +9,14 @@ import 'package:rxdart/rxdart.dart';
 
 DatabaseReference get _db => userDb.child('rotation');
 
+/// [Day]s configured by the user.
 Observable<FireMap<Day>> get stream => _adapter.stream;
 final _adapter = new FirebaseAdapter<Day>(_db, (e) => new Day.fromJson(e),
     comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
+/// Initializes the workout rotation database.
+///
+/// Must be called once before accessing [stream].
 Future initialize() async {
   await _adapter.open();
   if ((await stream.first).isEmpty) {
@@ -20,6 +24,7 @@ Future initialize() async {
   }
 }
 
+/// Adds a new [Day] to the rotation.
 Future<Null> newDay() async {
   final exercises = await exercise_db.stream.first;
   DatabaseReference ref = _db.push();
@@ -29,26 +34,32 @@ Future<Null> newDay() async {
   await ref.update(workout.toJson());
 }
 
+/// Updates an existing [Day] with new data.
 Future<Null> update(Day value) async {
   await _db.child(value.id).update(value.toJson());
 }
 
+/// Moves a [Day] one day earlier the rotation.
 Future<Null> moveUp(Day workout) async {
   final workouts = (await stream.first).values.toList();
   final index = workouts.indexWhere((w) => w.id == workout.id);
   await _swap(workouts, index, (index - 1) % workouts.length);
 }
 
+/// Moves a [Day] one day later in the rotation.
 Future<Null> moveDown(Day workout) async {
   final workouts = (await stream.first).values.toList();
   final index = workouts.indexWhere((w) => w.id == workout.id);
   await _swap(workouts, index, (index + 1) % workouts.length);
 }
 
+/// Deletes a [Day] from the rotation.
 Future<Null> remove(Day value) async {
   await _db.child(value.id).remove();
 }
 
+/// Swaps two days.
+// TODO: Make this atomic.
 Future<Null> _swap(List<Day> workouts, int i, int j) async {
   final iId = workouts[i].id;
   final jId = workouts[j].id;
@@ -59,6 +70,7 @@ Future<Null> _swap(List<Day> workouts, int i, int j) async {
   await update(newJ);
 }
 
+/// Initializes the rotation database with sample data.
 Future<Null> _populateInitial() async {
   final exercises = (await exercise_db.stream.first).values.toList();
   final _chinUps = exercises[0].id;

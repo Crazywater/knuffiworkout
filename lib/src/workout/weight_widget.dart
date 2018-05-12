@@ -6,12 +6,18 @@ import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 
+/// Callback that is invoked when an [Exercise] is to be updated with new data.
 typedef void ExerciseSaver(Exercise exercise);
 
 /// A widget that shows the weight for an exercise, with an optional suggestion.
 class WeightWidget extends StatelessWidget {
+  /// [Exercise] for which to render the weight.
   final Exercise _exercise;
+
+  /// Saves the [Exercise] when the weight is changed.
   final ExerciseSaver _saveCallback;
+
+  /// Whether to show the suggested weight of [_exercise].
   final bool showsSuggestion;
 
   WeightWidget(this._exercise, this._saveCallback, {this.showsSuggestion});

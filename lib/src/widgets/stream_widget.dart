@@ -4,10 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 
+/// Turns an object of type [A] into a [Widget].
 typedef Widget WidgetBuilder1<A>(A a, BuildContext context);
+
+/// Turns two objects of type [A] and [B] into a [Widget].
 typedef Widget WidgetBuilder2<A, B>(A a, B b, BuildContext context);
+
+/// Turns three objects of type [A], [B] and [C] into a [Widget].
 typedef Widget WidgetBuilder3<A, B, C>(A a, B b, C c, BuildContext context);
 
+/// Listens to an [Observable] and turns its contents into a [Widget] using
+/// the given [WidgetBuilder1].
+///
+/// Updates automatically whenever the [Observable] emits a new value.
 class StreamWidget1<A> extends StatelessWidget {
   final Observable<A> _stream;
   final WidgetBuilder1<A> _builder;
@@ -26,6 +35,10 @@ class StreamWidget1<A> extends StatelessWidget {
       });
 }
 
+/// Listens to two [Observable]s and turns their contents into a [Widget] using
+/// the given [WidgetBuilder2].
+///
+/// Updates automatically whenever the [Observable]s emit new values.
 class StreamWidget2<A, B> extends StatelessWidget {
   final Observable<List> _combinedStream;
   final WidgetBuilder2<A, B> _builder;
@@ -47,6 +60,10 @@ class StreamWidget2<A, B> extends StatelessWidget {
       });
 }
 
+/// Listens to three [Observable]s and turns their contents into a [Widget]
+/// using  the given [WidgetBuilder3].
+///
+/// Updates automatically whenever the [Observable]s emit new values.
 class StreamWidget3<A, B, C> extends StatelessWidget {
   final Observable<List> _combinedStream;
   final WidgetBuilder3<A, B, C> _builder;

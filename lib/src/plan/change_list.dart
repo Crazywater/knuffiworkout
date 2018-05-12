@@ -7,8 +7,15 @@ import 'package:meta/meta.dart';
 
 typedef Widget ItemToWidget<T>(BuildContext context, List<T> items, int index);
 
+/// Renders a list from the contents of a [FireMap].
+///
+/// If the given [FireMap] grows in size, the list scrolls down to the end.
+/// This is useful for views where the user can add items to the list.
 class ChangeList<T> extends StatefulWidget {
+  /// The items to render.
   final Stream<FireMap<T>> changes;
+
+  /// Function that renders a single item in the [FireMap] as a [Widget].
   final ItemToWidget<T> widgetBuilder;
 
   ChangeList({@required this.changes, @required this.widgetBuilder});

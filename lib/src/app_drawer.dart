@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:meta/meta.dart';
 
-/// An entry in the app drawer.
+/// An entry in the [AppDrawer].
 class DrawerItem {
   /// Whether the item is currently selected.
   final bool isSelected;
@@ -26,6 +26,7 @@ class DrawerItem {
       );
 }
 
+/// Left hand side drawer for the app.
 class AppDrawer extends StatelessWidget {
   final List<DrawerItem> drawerItems;
 

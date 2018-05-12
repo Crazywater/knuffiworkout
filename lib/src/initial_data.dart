@@ -70,6 +70,7 @@ final _hollowHolds = new PlannedExercise((b) => b
   ..increase = 0.0
   ..decreaseFactor = 0.0);
 
+/// Initial suggested exercises.
 final exercises = [
   _chinUps,
   _rows,

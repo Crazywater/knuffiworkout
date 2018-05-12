@@ -10,12 +10,15 @@ import 'package:rxdart/rxdart.dart';
 
 final DatabaseReference _db = userDb.child('done');
 
+/// Workouts performed by the user.
+Observable<FireMap<Workout>> get stream => _adapter.stream;
 final _adapter = new FirebaseAdapter<Workout>(
     _db, (e) => new Workout.fromJson(e),
     comparator: (w1, w2) => w2.date.compareTo(w1.date));
 
-Observable<FireMap<Workout>> get stream => _adapter.stream;
-
+/// Initializes the workout database.
+///
+/// Must be called once before accessing [stream].
 Future<Null> initialize() => _adapter.open();
 
 /// Returns the workout at the given day.
@@ -50,6 +53,9 @@ Future<Workout> create(DateTime date) async {
   return workout.build();
 }
 
+/// Computes the suggested weight, given the last exercise of that type.
+///
+/// [lastExercise] may be null if there is none.
 double _computeSuggestion(
     Exercise lastExercise, FireMap<PlannedExercise> plannedExercises) {
   final lastWeight = lastExercise?.weight ?? 0.0;
@@ -77,21 +83,26 @@ double _computeSuggestion(
   return suggestion;
 }
 
+/// Index in the rotation of the next workout (the next day).
 Future<int> nextRotationIndex() async {
   final workouts = (await stream.first).values.toList();
   final rotation = (await rotation_db.stream.first).values.toList();
   return nextRotationIndexFor(workouts, rotation);
 }
 
+/// Index in the [rotation] for the next workout, given that [workouts] are
+/// sorted by date (newest one first).
 int nextRotationIndexFor(List<Workout> workouts, List<Day> rotation) {
   if (workouts.isEmpty) return 0;
   return (workouts.first.rotationIndex + 1) % rotation.length;
 }
 
+/// Updates an existing [Workout].
 Future save(Workout workout) async {
   await _getEntry(workout.dateTime).set(workout.toJson());
 }
 
+/// Returns the most recently performed [Exercise] of the given ID.
 Future<Exercise> _getLastExercise(String exerciseId) async {
   final workouts = await stream.first;
   for (final workout in workouts.values) {
@@ -104,8 +115,9 @@ Future<Exercise> _getLastExercise(String exerciseId) async {
   return null;
 }
 
-DatabaseReference _getEntry(DateTime date) => _db.child(toKey(date));
-
+/// Firebase key of a workout performed on the given date.
 String toKey(DateTime d) => '${d.year}-${_padDate(d.month)}-${_padDate(d.day)}';
+
+DatabaseReference _getEntry(DateTime date) => _db.child(toKey(date));
 
 String _padDate(int date) => date.toString().padLeft(2, '0');
