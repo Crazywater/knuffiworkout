@@ -18,20 +18,25 @@ class SetButton extends StatelessWidget {
       this.isElevated = false});
 
   @override
-  Widget build(BuildContext context) => new Material(
-        color: color ?? defaultSetColor,
-        borderRadius: new BorderRadius.all(new Radius.circular(8.0)),
-        elevation: isElevated ? 8.0 : 0.0,
-        child: new InkWell(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          child: new Padding(
-            padding: new EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-            child: new Text(
-              '$reps',
-              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
+  Widget build(BuildContext context) {
+    return new Material(
+      color: color ?? defaultSetColor,
+      borderRadius: new BorderRadius.all(new Radius.circular(8.0)),
+      elevation: isElevated ? 8.0 : 0.0,
+      child: new InkWell(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: new Padding(
+          padding: new EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          child: new Text(
+            '$reps',
+            style: new TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: textColor(color)),
           ),
         ),
-      );
+      ),
+    );
+  }
 }

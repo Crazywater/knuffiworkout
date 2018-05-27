@@ -5,13 +5,19 @@ import 'package:knuffiworkout/src/model.dart';
 Color get primarySwatch => Colors.blue;
 
 /// The color for a [WorkoutSet], depending on whether it was successful.
-Color getSetColor(WorkoutSet set) {
+Color colorForSet(WorkoutSet set) {
   if (set.completed) {
     return set.actualReps < set.plannedReps
-        ? Colors.red[200]
+        ? Colors.red[700]
         : Colors.lightGreen;
   }
   return defaultSetColor;
+}
+
+/// Returns a suitable text color for the [background].
+Color textColor(Color background) {
+  final luminance = background.computeLuminance();
+  return luminance >= 0.45 ? Colors.black : Colors.white;
 }
 
 /// Default set color for uncompleted sets.
