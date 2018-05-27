@@ -10,14 +10,11 @@ Future<String> showEditDialog(String title, String text, BuildContext context,
     TextInputType keyboardType = TextInputType.number}) async {
   final controller = new TextEditingController(text: text)
     ..selection = new TextSelection(baseOffset: 0, extentOffset: text.length);
-
-  // Work-around: The context might get destroyed.
-  final appState =
-      context.ancestorStateOfType(const TypeMatcher<State<MaterialApp>>());
+  final navigator = Navigator.of(context, rootNavigator: true);
 
   void submit([_]) {
     // Return controller text as return value of showDialog.
-    Navigator.of(appState.context).pop(controller.text);
+    navigator.pop(controller.text);
   }
 
   final value = await showDialog(
