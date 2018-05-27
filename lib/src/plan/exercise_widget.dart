@@ -117,7 +117,7 @@ class ExerciseWidget extends StatelessWidget {
     final newString = await showEditDialog(
         'Increase by', formatWeight(exercise.increase), context);
     if (newString == null) return;
-    final newValue = double.parse(newString, (_) => oldValue);
+    final newValue = double.tryParse(newString) ?? oldValue;
     await exercise_db.update(exercise.rebuild((b) => b.increase = newValue));
   }
 
@@ -127,7 +127,7 @@ class ExerciseWidget extends StatelessWidget {
         'Decrease by', formatPercentage(exercise.decreaseFactor), context,
         decoration: new InputDecoration(suffixText: '%'));
     if (newString == null) return;
-    var newValue = double.parse(newString, (_) => 0.0);
+    var newValue = double.tryParse(newString) ?? 0.0;
     if (newValue > 100.0) newValue = 100.0;
     await exercise_db
         .update(exercise.rebuild((b) => b.decreaseFactor = newValue / 100.0));
@@ -137,7 +137,7 @@ class ExerciseWidget extends StatelessWidget {
       BuildContext context) async {
     final newString = await showEditDialog('Reps', '$oldValue', context);
     if (newString == null) return;
-    final newValue = int.parse(newString, onError: (_) => oldValue);
+    final newValue = int.tryParse(newString) ?? oldValue;
     if (newValue == oldValue) return;
     final builder = exercise.toBuilder();
     if (newValue <= 0) {
