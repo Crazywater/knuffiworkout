@@ -20,15 +20,16 @@ class PastView extends StatelessWidget {
 
   Widget _rebuild(FireMap<Workout> workouts, FireMap<PlannedExercise> exercises,
       BuildContext context) {
+    final workoutKeys = workouts.keys.toList();
     final workoutList = workouts.values.toList();
     return new ListView.builder(
       itemCount: workoutList.length,
-      itemBuilder: (BuildContext context, int index) =>
-          _renderWorkout(workoutList[index], exercises, context),
+      itemBuilder: (BuildContext context, int index) => _renderWorkout(
+          workoutKeys[index], workoutList[index], exercises, context),
     );
   }
 
-  Widget _renderWorkout(Workout workout,
+  Widget _renderWorkout(String workoutKey, Workout workout,
       FireMap<PlannedExercise> plannedExercises, BuildContext context) {
     var exercises = workout.exercises
         .map((e) => _renderExercise(e, plannedExercises[e.plannedExerciseId]))
@@ -37,8 +38,7 @@ class PastView extends StatelessWidget {
         header: _renderDate(workout.dateTime),
         children: exercises,
         onTap: () {
-          editScreen.navigateTo(context,
-              pathSegments: [formatDate(workout.dateTime)]);
+          editScreen.navigateTo(context, pathSegments: [workoutKey]);
         });
   }
 
