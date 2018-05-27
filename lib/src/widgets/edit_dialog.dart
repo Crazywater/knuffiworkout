@@ -17,43 +17,24 @@ Future<String> showEditDialog(String title, String text, BuildContext context,
     navigator.pop(controller.text);
   }
 
+  // TODO: Use TextAlign.right for numbers again when selection is fixed:
+  // https://github.com/flutter/flutter/issues/17945
   final value = await showDialog(
     context: context,
-    child: new _SystemPadding(
-      child: new AlertDialog(
-        title: new Text(title),
-        content: new TextField(
-            autofocus: true,
-            controller: controller,
-            keyboardType: keyboardType,
-            onSubmitted: submit,
-            decoration: decoration,
-            textAlign: keyboardType == TextInputType.number
-                ? TextAlign.end
-                : TextAlign.start),
-        actions: [
-          new FlatButton(child: new Text("OK"), onPressed: submit),
-        ],
-        contentPadding: new EdgeInsets.symmetric(horizontal: 24.0),
-      ),
-    ),
+    builder: (_) => new AlertDialog(
+          title: new Text(title),
+          content: new TextField(
+              autofocus: true,
+              controller: controller,
+              keyboardType: keyboardType,
+              onSubmitted: submit,
+              decoration: decoration),
+          actions: [
+            new FlatButton(child: new Text("OK"), onPressed: submit),
+          ],
+          contentPadding: new EdgeInsets.symmetric(horizontal: 24.0),
+        ),
   );
 
   return value;
-}
-
-// Fix for https://github.com/flutter/flutter/issues/7032.
-class _SystemPadding extends StatelessWidget {
-  final Widget child;
-
-  _SystemPadding({Key key, this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    return new AnimatedContainer(
-        padding: mediaQuery.viewInsets,
-        duration: const Duration(milliseconds: 300),
-        child: child);
-  }
 }
