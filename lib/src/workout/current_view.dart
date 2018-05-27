@@ -31,8 +31,7 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final now = new DateTime.now();
-    if (_tempWorkout != null &&
-        workout_db.toKey(now) != workout_db.toKey(_tempWorkout.dateTime)) {
+    if (_tempWorkout != null && _toDay(now) != _toDay(_tempWorkout.dateTime)) {
       setState(() {
         _tempWorkout = null;
       });
@@ -41,8 +40,18 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
 
   Widget _rebuild(FireMap<Workout> workouts, BuildContext context) {
     final now = new DateTime.now();
-    final currentKey = workout_db.toKey(now);
-    final existingWorkout = workouts[currentKey];
+    final today = _toDay(now);
+
+    String existingKey;
+    Workout existingWorkout;
+
+    workouts.forEach((key, workout) {
+      if (existingKey != null) return;
+      if (_toDay(workout.dateTime) == today) {
+        existingKey = key;
+        existingWorkout = workout;
+      }
+    });
 
     if (existingWorkout == null && _tempWorkout == null) {
       workout_db.create(now).then((newWorkout) {
@@ -53,7 +62,10 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
       return new LinearProgressIndicator();
     }
 
-    return new WorkoutEditor(existingWorkout ?? _tempWorkout,
+    return new WorkoutEditor(existingKey, existingWorkout ?? _tempWorkout,
         showsSuggestion: true);
   }
+
+  DateTime _toDay(DateTime timestamp) =>
+      new DateTime(timestamp.year, timestamp.month, timestamp.day);
 }

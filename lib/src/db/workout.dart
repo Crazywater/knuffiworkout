@@ -21,9 +21,10 @@ final _adapter = new FirebaseAdapter<Workout>(
 /// Must be called once before accessing [stream].
 Future<Null> initialize() => _adapter.open();
 
-/// Returns the workout at the given day.
+/// Creates a new workout at the given day.
 ///
-/// If no such workout exists yet, creates a new one.
+/// This workout is not yet persisted to the database. To persist it, call
+/// [push].
 Future<Workout> create(DateTime date) async {
   final plannedExercises = await exercise_db.stream.first;
   final rotation = (await rotation_db.stream.first).values.toList();
@@ -97,9 +98,14 @@ int nextRotationIndexFor(List<Workout> workouts, List<Day> rotation) {
   return (workouts.first.rotationIndex + 1) % rotation.length;
 }
 
+/// Persists a new [Workout] to the database.
+Future push(Workout workout) async {
+  await _db.push().set(workout.toJson());
+}
+
 /// Updates an existing [Workout].
-Future save(Workout workout) async {
-  await _getEntry(workout.dateTime).set(workout.toJson());
+Future save(String key, Workout workout) async {
+  await _db.child(key).set(workout.toJson());
 }
 
 /// Returns the most recently performed [Exercise] of the given ID.
@@ -114,10 +120,3 @@ Future<Exercise> _getLastExercise(String exerciseId) async {
   }
   return null;
 }
-
-/// Firebase key of a workout performed on the given date.
-String toKey(DateTime d) => '${d.year}-${_padDate(d.month)}-${_padDate(d.day)}';
-
-DatabaseReference _getEntry(DateTime date) => _db.child(toKey(date));
-
-String _padDate(int date) => date.toString().padLeft(2, '0');

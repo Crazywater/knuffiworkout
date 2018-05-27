@@ -103,7 +103,7 @@ class FireMap<T> {
     _sortedKeys.insert(newIndex > oldIndex ? newIndex - 1 : newIndex, key);
   }
 
-  T operator [](Object key) => _map[key];
+  T operator [](String key) => _map[key];
 
   Iterable<String> get keys => new UnmodifiableListView(_sortedKeys);
 
@@ -114,6 +114,12 @@ class FireMap<T> {
   bool get isNotEmpty => _map.isNotEmpty;
 
   bool containsKey(String key) => _map.containsKey(key);
+
+  void forEach(void Function(String key, T value) callback) {
+    for (var key in _sortedKeys) {
+      callback(key, this[key]);
+    }
+  }
 
   int _keyComparator(String left, String right) =>
       _comparator(this[left], this[right]);

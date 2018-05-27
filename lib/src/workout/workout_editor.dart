@@ -8,10 +8,15 @@ import 'package:knuffiworkout/src/workout/exercise_widget.dart';
 
 /// Editor to edit a new or existing workout.
 class WorkoutEditor extends StatelessWidget {
+  /// Key of the workout in the database.
+  ///
+  /// Can be `null` if the workout hasn't been persisted yet.
+  final String _key;
   final Workout _workout;
   final bool showsSuggestion;
 
-  WorkoutEditor(this._workout, {this.showsSuggestion = false, Key key})
+  WorkoutEditor(this._key, this._workout,
+      {this.showsSuggestion = false, Key key})
       : super(key: key);
 
   @override
@@ -30,15 +35,23 @@ class WorkoutEditor extends StatelessWidget {
         saveSet: (setIndex, set) {
           final newWorkout = _workout.rebuild((w) => w.exercises[i] =
               w.exercises[i].rebuild((e) => e.sets[setIndex] = set));
-          workout_db.save(newWorkout);
+          _save(newWorkout);
         },
         saveExercise: (exercise) {
-          workout_db.save(_workout.rebuild((b) => b.exercises[i] = exercise));
+          _save(_workout.rebuild((b) => b.exercises[i] = exercise));
         },
       );
       children.add(widget);
     }
 
     return new ListView(children: children);
+  }
+
+  void _save(Workout newWorkout) {
+    if (_key != null) {
+      workout_db.save(_key, newWorkout);
+    } else {
+      workout_db.push(newWorkout);
+    }
   }
 }

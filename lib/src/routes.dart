@@ -43,9 +43,8 @@ final editScreen = new AppRouteItem(
     path: '/edit',
     pathParser: (List<String> pathSegments) {
       assert(pathSegments.length == 1);
-      final splitDate = pathSegments.single.split('-').map(int.parse).toList();
-      final date = new DateTime(splitDate[0], splitDate[1], splitDate[2]);
-      return (BuildContext context) => new EditScreen(date);
+      final key = pathSegments.first;
+      return (BuildContext context) => new EditScreen(key);
     });
 
 /// All routes that are directly mapped and do not have complex path parsing.
