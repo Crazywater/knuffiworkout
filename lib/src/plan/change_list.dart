@@ -5,7 +5,9 @@ import 'package:knuffiworkout/src/db/firebase_adapter.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:meta/meta.dart';
 
-typedef Widget ItemToWidget<T>(BuildContext context, List<T> items, int index);
+// TODO: Figure out why List<T> doesn't work for items.
+typedef Widget ItemToWidget<T>(
+    BuildContext context, List<dynamic> items, int index);
 
 /// Renders a list from the contents of a [FireMap].
 ///

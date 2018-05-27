@@ -19,8 +19,9 @@ class SetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = color ?? defaultSetColor;
     return new Material(
-      color: color ?? defaultSetColor,
+      color: backgroundColor,
       borderRadius: new BorderRadius.all(new Radius.circular(8.0)),
       elevation: isElevated ? 8.0 : 0.0,
       child: new InkWell(
@@ -33,7 +34,7 @@ class SetButton extends StatelessWidget {
             style: new TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
-                color: textColor(color)),
+                color: textColor(backgroundColor)),
           ),
         ),
       ),
