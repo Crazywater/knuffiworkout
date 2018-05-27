@@ -5,9 +5,7 @@ import 'package:knuffiworkout/src/db/firebase_adapter.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:meta/meta.dart';
 
-// TODO: Figure out why List<T> doesn't work for items.
-typedef Widget ItemToWidget<T>(
-    BuildContext context, List<dynamic> items, int index);
+typedef Widget ItemToWidget<T>(BuildContext context, List<T> items, int index);
 
 /// Renders a list from the contents of a [FireMap].
 ///
@@ -26,7 +24,7 @@ class ChangeList<T> extends StatefulWidget {
   _ChangeListState<T> createState() => new _ChangeListState<T>();
 }
 
-class _ChangeListState<T> extends State<ChangeList> {
+class _ChangeListState<T> extends State<ChangeList<T>> {
   final _scrollController = new ScrollController();
   List<T> items;
 
