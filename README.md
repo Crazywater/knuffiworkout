@@ -51,5 +51,4 @@ For signing release builds, you need a keystore and some additional information 
 Instructions can be found on the [Flutter homepage](https://flutter.io/android-release/) under "Signing the app".
 
 ## Feature wishlist
-* Use charts_flutter instead of custom drawn charts
 * Presets for other popular workouts (5x5, Starting Strength, ...)

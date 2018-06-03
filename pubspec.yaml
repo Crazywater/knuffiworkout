@@ -7,6 +7,7 @@ dependencies:
   google_sign_in: ^2.0.1
   rxdart: ^0.16.0
   built_value: ^5.2.1
+  charts_flutter: ^0.3.0
 
   flutter:
     sdk: flutter
