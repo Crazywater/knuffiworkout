@@ -10,5 +10,4 @@ DatabaseReference _userDb;
 /// Initializes the user database with the given [userId].
 void setUserId(String userId) {
   _userDb = _db.child('user/$userId');
-  _userDb.keepSynced(true);
 }
