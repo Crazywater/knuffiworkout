@@ -40,7 +40,7 @@ I don't have an iOS device (nor do I have an Apple developer account or a Mac wi
 so the iOS code is just the default from the Flutter framework.
 
 ### Regenerating built_value files
-The built_value file `model.g.dart` can be regenerated from `model.dart` using
+The built_value `.g.dart` files can be regenerated from the corresponding `.dart` files using
 ```
 flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
