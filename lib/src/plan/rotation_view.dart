@@ -13,19 +13,19 @@ import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 /// In this view, the user configures the rotation of exercises across [Day]s.
 class RotationView extends StatefulWidget {
   @override
-  _RotationViewState createState() => new _RotationViewState();
+  _RotationViewState createState() => _RotationViewState();
 }
 
 class _RotationViewState extends State<RotationView> {
   @override
   Widget build(BuildContext context) =>
-      new StreamWidget2(exercise_db.stream, workout_db.stream, _rebuild);
+      StreamWidget2(exercise_db.stream, workout_db.stream, _rebuild);
 
   Widget _rebuild(FireMap<PlannedExercise> exercises, FireMap<Workout> workouts,
       BuildContext context) {
-    return new ChangeList<Day>(
+    return ChangeList<Day>(
       changes: rotation_db.stream,
-      widgetBuilder: (context, rotation, index) => new DayWidget(
+      widgetBuilder: (context, rotation, index) => DayWidget(
             exercises,
             rotation,
             index,

@@ -27,10 +27,10 @@ class StreamWidget1<A> extends StatelessWidget {
   StreamWidget1._(this._stream, this._builder);
 
   @override
-  Widget build(BuildContext context) => new StreamBuilder(
+  Widget build(BuildContext context) => StreamBuilder(
       stream: _stream,
       builder: (context, snapshot) {
-        if (snapshot.data == null) return new LinearProgressIndicator();
+        if (snapshot.data == null) return LinearProgressIndicator();
         return _builder(snapshot.data, context);
       });
 }
@@ -52,10 +52,10 @@ class StreamWidget2<A, B> extends StatelessWidget {
   StreamWidget2._(this._combinedStream, this._builder);
 
   @override
-  Widget build(BuildContext context) => new StreamBuilder(
+  Widget build(BuildContext context) => StreamBuilder(
       stream: _combinedStream,
       builder: (context, snapshot) {
-        if (snapshot.data == null) return new LinearProgressIndicator();
+        if (snapshot.data == null) return LinearProgressIndicator();
         return _builder(snapshot.data[0], snapshot.data[1], context);
       });
 }
@@ -78,10 +78,10 @@ class StreamWidget3<A, B, C> extends StatelessWidget {
   StreamWidget3._(this._combinedStream, this._builder);
 
   @override
-  Widget build(BuildContext context) => new StreamBuilder(
+  Widget build(BuildContext context) => StreamBuilder(
       stream: _combinedStream,
       builder: (context, snapshot) {
-        if (snapshot.data == null) return new LinearProgressIndicator();
+        if (snapshot.data == null) return LinearProgressIndicator();
         return _builder(
             snapshot.data[0], snapshot.data[1], snapshot.data[2], context);
       });

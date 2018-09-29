@@ -14,7 +14,7 @@ import 'package:meta/meta.dart';
 /// via a drawer.
 class MainScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _MainScreenState();
+  State<StatefulWidget> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -26,33 +26,33 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _views = <_View>[
-      new _View(
+      _View(
         "Current workout",
-        new _DrawerConfig(icon: Icons.assignment, hasDividerAfter: true),
-        (_) => new CurrentView(),
+        _DrawerConfig(icon: Icons.assignment, hasDividerAfter: true),
+        (_) => CurrentView(),
       ),
-      new _View(
+      _View(
         "Past workouts",
-        new _DrawerConfig(icon: Icons.assignment_turned_in),
-        (_) => new PastView(),
+        _DrawerConfig(icon: Icons.assignment_turned_in),
+        (_) => PastView(),
       ),
-      new _View(
+      _View(
         "Progress",
-        new _DrawerConfig(icon: Icons.equalizer, hasDividerAfter: true),
-        (_) => new ProgressView(),
+        _DrawerConfig(icon: Icons.equalizer, hasDividerAfter: true),
+        (_) => ProgressView(),
       ),
-      new _View(
+      _View(
         "Exercises",
-        new _DrawerConfig(icon: Icons.settings),
-        (_) => new PlanExercisesView(),
+        _DrawerConfig(icon: Icons.settings),
+        (_) => PlanExercisesView(),
         fabBuilder: (_) => renderFab(onPressed: () {
               exercise_db.createNew();
             }),
       ),
-      new _View(
+      _View(
         "Rotation",
-        new _DrawerConfig(icon: Icons.event),
-        (_) => new RotationView(),
+        _DrawerConfig(icon: Icons.event),
+        (_) => RotationView(),
         fabBuilder: (_) => renderFab(onPressed: () {
               rotation_db.newDay();
             }),
@@ -65,16 +65,16 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(title: new Text(_currentView.title)),
-        drawer: new AppDrawer(_drawerItems),
+    return Scaffold(
+        appBar: AppBar(title: Text(_currentView.title)),
+        drawer: AppDrawer(_drawerItems),
         body: _currentView.builder(context),
         floatingActionButton: _currentView.fabBuilder == null
             ? null
             : _currentView.fabBuilder(context));
   }
 
-  DrawerItem _createDrawerItem(_View view) => new DrawerItem(
+  DrawerItem _createDrawerItem(_View view) => DrawerItem(
         view.drawerConfig.icon,
         view.title,
         onTap: () {
@@ -117,9 +117,9 @@ class _DrawerConfig {
 
 /// Renders a floating plus button (FAB).
 FloatingActionButton renderFab({VoidCallback onPressed}) =>
-    new FloatingActionButton(
+    FloatingActionButton(
         backgroundColor: fabColor,
-        child: new Icon(Icons.add),
+        child: Icon(Icons.add),
         onPressed: onPressed);
 
 typedef FloatingActionButton _FabBuilder(BuildContext context);

@@ -16,13 +16,13 @@ class PastView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      new StreamWidget2(workout_db.stream, exercise_db.stream, _rebuild);
+      StreamWidget2(workout_db.stream, exercise_db.stream, _rebuild);
 
   Widget _rebuild(FireMap<Workout> workouts, FireMap<PlannedExercise> exercises,
       BuildContext context) {
     final workoutKeys = workouts.keys.toList();
     final workoutList = workouts.values.toList();
-    return new ListView.builder(
+    return ListView.builder(
       itemCount: workoutList.length,
       itemBuilder: (BuildContext context, int index) => _renderWorkout(
           workoutKeys[index], workoutList[index], exercises, context),
@@ -34,7 +34,7 @@ class PastView extends StatelessWidget {
     var exercises = workout.exercises
         .map((e) => _renderExercise(e, plannedExercises[e.plannedExerciseId]))
         .toList();
-    return new KnuffiCard(
+    return KnuffiCard(
         header: _renderDate(workout.dateTime),
         children: exercises,
         onTap: () {
@@ -50,18 +50,18 @@ class PastView extends StatelessWidget {
 
     final sets = <Widget>[];
     for (final set in exercise.sets) {
-      var style = new TextStyle(color: colorForSet(set));
-      sets.add(new Text('${set.actualReps}', style: style));
+      var style = TextStyle(color: colorForSet(set));
+      sets.add(Text('${set.actualReps}', style: style));
       if (!identical(set, exercise.sets.last)) {
-        sets.add(new Text('/'));
+        sets.add(Text('/'));
       }
     }
 
-    return new Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        new Text(exerciseName),
-        new Row(children: sets),
+        Text(exerciseName),
+        Row(children: sets),
       ],
     );
   }
@@ -70,11 +70,11 @@ class PastView extends StatelessWidget {
     final renderedDate = formatDate(date);
     final weekday = _weekdays[date.weekday - 1];
 
-    return new Text('$weekday — $renderedDate', style: headerTextStyle);
+    return Text('$weekday — $renderedDate', style: headerTextStyle);
   }
 }
 
-const _weekdays = const [
+const _weekdays = [
   'Monday',
   'Tuesday',
   'Wednesday',

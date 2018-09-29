@@ -16,7 +16,7 @@ typedef T Deserializer<T>(Map json);
 /// On every change, the [FireMap] is updated and [stream] emits the new
 /// current state.
 class FirebaseAdapter<T> {
-  final _subject = new BehaviorSubject<FireMap<T>>();
+  final _subject = BehaviorSubject<FireMap<T>>();
   final Query _query;
   final Deserializer<T> _deserializer;
   final Comparator<T> _comparator;
@@ -41,7 +41,7 @@ class FirebaseAdapter<T> {
   Future<Null> open() async {
     assert(_subscriptions == null, "Already open!");
 
-    _map = new FireMap<T>(_comparator);
+    _map = FireMap<T>(_comparator);
 
     _subscriptions = [
       _query.onChildAdded.listen((event) {
@@ -105,7 +105,7 @@ class FireMap<T> {
 
   T operator [](String key) => _map[key];
 
-  Iterable<String> get keys => new UnmodifiableListView(_sortedKeys);
+  Iterable<String> get keys => UnmodifiableListView(_sortedKeys);
 
   Iterable<T> get values => _sortedKeys.map((key) => _map[key]);
 

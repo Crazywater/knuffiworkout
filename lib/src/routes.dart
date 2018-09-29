@@ -35,16 +35,16 @@ class AppRouteItem {
 ///
 /// This screen contains most of the app content in subviews that are managed
 /// independently of the app routing mechanism (see [MainScreen]).
-final mainScreen = new AppRouteItem(
-    path: '/', buildWidget: (BuildContext context) => new MainScreen());
+final mainScreen = AppRouteItem(
+    path: '/', buildWidget: (BuildContext context) => MainScreen());
 
 /// Screen in the app for editing a workout after the fact.
-final editScreen = new AppRouteItem(
+final editScreen = AppRouteItem(
     path: '/edit',
     pathParser: (List<String> pathSegments) {
       assert(pathSegments.length == 1);
       final key = pathSegments.first;
-      return (BuildContext context) => new EditScreen(key);
+      return (BuildContext context) => EditScreen(key);
     });
 
 /// All routes that are directly mapped and do not have complex path parsing.

@@ -11,8 +11,8 @@ DatabaseReference get _db => userDb.child('exercise');
 
 /// [PlannedExercise]s saved by the user.
 Observable<FireMap<PlannedExercise>> get stream => _adapter.stream;
-final _adapter = new FirebaseAdapter<PlannedExercise>(
-    _db, (e) => new PlannedExercise.fromJson(e),
+final _adapter = FirebaseAdapter<PlannedExercise>(
+    _db, (e) => PlannedExercise.fromJson(e),
     comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
 /// Initializes the database of planned exercises from Firebase.
@@ -28,10 +28,10 @@ Future initialize() async {
 /// Creates a new exercise.
 Future<Null> createNew() async {
   DatabaseReference ref = _db.push();
-  final exercise = new PlannedExercise((b) => b
+  final exercise = PlannedExercise((b) => b
     ..id = ref.key
     ..name = 'Ear shrugs'
-    ..sets.add(new PlannedSet((b) => b..reps = 5))
+    ..sets.add(PlannedSet((b) => b..reps = 5))
     ..hasWeight = false
     ..increase = 0.0
     ..decreaseFactor = 0.0);

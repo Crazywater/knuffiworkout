@@ -13,13 +13,13 @@ class EditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      new StreamWidget1(workout_db.stream, _rebuild);
+      StreamWidget1(workout_db.stream, _rebuild);
 
   Widget _rebuild(FireMap<Workout> workouts, BuildContext context) {
     final workout = workouts[_key];
-    return new Scaffold(
-      appBar: new AppBar(title: new Text('Edit workout')),
-      body: new WorkoutEditor(_key, workout),
+    return Scaffold(
+      appBar: AppBar(title: Text('Edit workout')),
+      body: WorkoutEditor(_key, workout),
     );
   }
 }

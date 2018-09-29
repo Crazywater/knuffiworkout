@@ -39,10 +39,10 @@ class ExerciseWidget extends StatelessWidget {
     final plannedExercise = exercise.plannedExercise;
 
     final header = <Widget>[
-      new Text(plannedExercise.name, style: headerTextStyle),
+      Text(plannedExercise.name, style: headerTextStyle),
     ];
     if (plannedExercise.hasWeight) {
-      header.add(new WeightWidget(exercise.exercise, saveExercise,
+      header.add(WeightWidget(exercise.exercise, saveExercise,
           showsSuggestion: showsSuggestion));
     }
 
@@ -53,14 +53,14 @@ class ExerciseWidget extends StatelessWidget {
       setWidgets.add(_renderSet(i, set, context));
     }
 
-    return new KnuffiCard(
-        header: new Row(
+    return KnuffiCard(
+        header: Row(
           children: header,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
         children: [
-          new Row(
+          Row(
             children: setWidgets,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
           )
@@ -68,7 +68,7 @@ class ExerciseWidget extends StatelessWidget {
   }
 
   Widget _renderSet(int index, WorkoutSet set, BuildContext context) =>
-      new SetButton(
+      SetButton(
         reps: set.completed ? set.actualReps : set.plannedReps,
         color: colorForSet(set),
         isElevated: !set.completed,

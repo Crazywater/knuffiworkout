@@ -13,13 +13,13 @@ import 'package:knuffiworkout/src/widgets/colors.dart' as colors;
 import 'package:knuffiworkout/src/widgets/splash_screen.dart';
 
 void main() {
-  runApp(new App());
+  runApp(App());
 }
 
 /// The main Knuffiworkout app widget.
 class App extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _AppState();
+  State<StatefulWidget> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
@@ -46,12 +46,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    if (!isInitialized) return new SplashScreen();
-    return new MaterialApp(
-      theme: new ThemeData(
+    if (!isInitialized) return SplashScreen();
+    return MaterialApp(
+      theme: ThemeData(
         primarySwatch: colors.primarySwatch,
       ),
-      routes: new Map.fromIterable(directMappedRoutes,
+      routes: Map.fromIterable(directMappedRoutes,
           key: (route) => route.path, value: (route) => route.buildWidget),
       onGenerateRoute: _getRoute,
     );
@@ -61,7 +61,7 @@ class _AppState extends State<App> {
     final path = settings.name.split('/');
     if (path[0] != '') return null;
     if (path[1] == editScreen.path.substring(1)) {
-      return new MaterialPageRoute<Null>(
+      return MaterialPageRoute<Null>(
           settings: settings, builder: editScreen.pathParser(path.sublist(2)));
     }
     return null;
@@ -71,7 +71,7 @@ class _AppState extends State<App> {
 Future<FirebaseUser> _initializeUser() async {
   final currentUser = await FirebaseAuth.instance.currentUser();
   if (currentUser != null) return currentUser;
-  final googleSignIn = new GoogleSignIn();
+  final googleSignIn = GoogleSignIn();
   var googleUser = await googleSignIn.signInSilently();
   if (googleUser == null) {
     googleUser = await googleSignIn.signIn();

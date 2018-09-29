@@ -18,9 +18,9 @@ class DrawerItem {
       @required this.isSelected,
       this.hasDividerAfter = false});
 
-  Widget render() => new ListTile(
-        leading: new Icon(icon),
-        title: new Text(name, style: mediumTextStyle),
+  Widget render() => ListTile(
+        leading: Icon(icon),
+        title: Text(name, style: mediumTextStyle),
         onTap: onTap,
         selected: isSelected,
       );
@@ -34,16 +34,14 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final entries = <Widget>[
-      new Padding(padding: new EdgeInsets.only(top: 24.0))
-    ];
+    final entries = <Widget>[Padding(padding: EdgeInsets.only(top: 24.0))];
     for (final item in drawerItems) {
       entries.add(item.render());
       if (item.hasDividerAfter) {
-        entries.add(new Divider());
+        entries.add(Divider());
       }
     }
 
-    return new Drawer(child: new ListView(children: entries));
+    return Drawer(child: ListView(children: entries));
   }
 }

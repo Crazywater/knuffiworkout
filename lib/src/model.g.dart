@@ -3,16 +3,21 @@
 part of 'model.dart';
 
 // **************************************************************************
-// Generator: BuiltValueGenerator
+// BuiltValueGenerator
 // **************************************************************************
 
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
+// ignore_for_file: test_types_in_equals
 
 Serializers _$serializersInternal = (new Serializers().toBuilder()
       ..add(Day.serializer)
@@ -50,7 +55,7 @@ class _$DaySerializer implements StructuredSerializer<Day> {
 
   @override
   Iterable serialize(Serializers serializers, Day object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
@@ -65,7 +70,7 @@ class _$DaySerializer implements StructuredSerializer<Day> {
 
   @override
   Day deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new DayBuilder();
 
     final iterator = serialized.iterator;
@@ -100,7 +105,7 @@ class _$PlannedExerciseSerializer
 
   @override
   Iterable serialize(Serializers serializers, PlannedExercise object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
@@ -126,7 +131,7 @@ class _$PlannedExerciseSerializer
 
   @override
   PlannedExercise deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new PlannedExerciseBuilder();
 
     final iterator = serialized.iterator;
@@ -175,7 +180,7 @@ class _$PlannedSetSerializer implements StructuredSerializer<PlannedSet> {
 
   @override
   Iterable serialize(Serializers serializers, PlannedSet object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'reps',
       serializers.serialize(object.reps, specifiedType: const FullType(int)),
@@ -186,7 +191,7 @@ class _$PlannedSetSerializer implements StructuredSerializer<PlannedSet> {
 
   @override
   PlannedSet deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new PlannedSetBuilder();
 
     final iterator = serialized.iterator;
@@ -214,7 +219,7 @@ class _$WorkoutSetSerializer implements StructuredSerializer<WorkoutSet> {
 
   @override
   Iterable serialize(Serializers serializers, WorkoutSet object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'plannedReps',
       serializers.serialize(object.plannedReps,
@@ -232,7 +237,7 @@ class _$WorkoutSetSerializer implements StructuredSerializer<WorkoutSet> {
 
   @override
   WorkoutSet deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new WorkoutSetBuilder();
 
     final iterator = serialized.iterator;
@@ -268,7 +273,7 @@ class _$ExerciseSerializer implements StructuredSerializer<Exercise> {
 
   @override
   Iterable serialize(Serializers serializers, Exercise object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'plannedExerciseId',
       serializers.serialize(object.plannedExerciseId,
@@ -293,7 +298,7 @@ class _$ExerciseSerializer implements StructuredSerializer<Exercise> {
 
   @override
   Exercise deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new ExerciseBuilder();
 
     final iterator = serialized.iterator;
@@ -334,7 +339,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
 
   @override
   Iterable serialize(Serializers serializers, Workout object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'date',
       serializers.serialize(object.date, specifiedType: const FullType(int)),
@@ -352,7 +357,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
 
   @override
   Workout deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new WorkoutBuilder();
 
     final iterator = serialized.iterator;
@@ -391,9 +396,12 @@ class _$Day extends Day {
       (new DayBuilder()..update(updates)).build();
 
   _$Day._({this.id, this.plannedExerciseIds}) : super._() {
-    if (id == null) throw new BuiltValueNullFieldError('Day', 'id');
-    if (plannedExerciseIds == null)
+    if (id == null) {
+      throw new BuiltValueNullFieldError('Day', 'id');
+    }
+    if (plannedExerciseIds == null) {
       throw new BuiltValueNullFieldError('Day', 'plannedExerciseIds');
+    }
   }
 
   @override
@@ -404,10 +412,11 @@ class _$Day extends Day {
   DayBuilder toBuilder() => new DayBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Day) return false;
-    return id == other.id && plannedExerciseIds == other.plannedExerciseIds;
+    return other is Day &&
+        id == other.id &&
+        plannedExerciseIds == other.plannedExerciseIds;
   }
 
   @override
@@ -450,7 +459,9 @@ class DayBuilder implements Builder<Day, DayBuilder> {
 
   @override
   void replace(Day other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$Day;
   }
 
@@ -506,17 +517,24 @@ class _$PlannedExercise extends PlannedExercise {
       this.increase,
       this.decreaseFactor})
       : super._() {
-    if (id == null) throw new BuiltValueNullFieldError('PlannedExercise', 'id');
-    if (name == null)
+    if (id == null) {
+      throw new BuiltValueNullFieldError('PlannedExercise', 'id');
+    }
+    if (name == null) {
       throw new BuiltValueNullFieldError('PlannedExercise', 'name');
-    if (sets == null)
+    }
+    if (sets == null) {
       throw new BuiltValueNullFieldError('PlannedExercise', 'sets');
-    if (hasWeight == null)
+    }
+    if (hasWeight == null) {
       throw new BuiltValueNullFieldError('PlannedExercise', 'hasWeight');
-    if (increase == null)
+    }
+    if (increase == null) {
       throw new BuiltValueNullFieldError('PlannedExercise', 'increase');
-    if (decreaseFactor == null)
+    }
+    if (decreaseFactor == null) {
       throw new BuiltValueNullFieldError('PlannedExercise', 'decreaseFactor');
+    }
   }
 
   @override
@@ -528,10 +546,10 @@ class _$PlannedExercise extends PlannedExercise {
       new PlannedExerciseBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! PlannedExercise) return false;
-    return id == other.id &&
+    return other is PlannedExercise &&
+        id == other.id &&
         name == other.name &&
         sets == other.sets &&
         hasWeight == other.hasWeight &&
@@ -609,7 +627,9 @@ class PlannedExerciseBuilder
 
   @override
   void replace(PlannedExercise other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$PlannedExercise;
   }
 
@@ -654,7 +674,9 @@ class _$PlannedSet extends PlannedSet {
       (new PlannedSetBuilder()..update(updates)).build();
 
   _$PlannedSet._({this.reps}) : super._() {
-    if (reps == null) throw new BuiltValueNullFieldError('PlannedSet', 'reps');
+    if (reps == null) {
+      throw new BuiltValueNullFieldError('PlannedSet', 'reps');
+    }
   }
 
   @override
@@ -665,10 +687,9 @@ class _$PlannedSet extends PlannedSet {
   PlannedSetBuilder toBuilder() => new PlannedSetBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! PlannedSet) return false;
-    return reps == other.reps;
+    return other is PlannedSet && reps == other.reps;
   }
 
   @override
@@ -702,7 +723,9 @@ class PlannedSetBuilder implements Builder<PlannedSet, PlannedSetBuilder> {
 
   @override
   void replace(PlannedSet other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$PlannedSet;
   }
 
@@ -732,12 +755,15 @@ class _$WorkoutSet extends WorkoutSet {
 
   _$WorkoutSet._({this.plannedReps, this.actualReps, this.completed})
       : super._() {
-    if (plannedReps == null)
+    if (plannedReps == null) {
       throw new BuiltValueNullFieldError('WorkoutSet', 'plannedReps');
-    if (actualReps == null)
+    }
+    if (actualReps == null) {
       throw new BuiltValueNullFieldError('WorkoutSet', 'actualReps');
-    if (completed == null)
+    }
+    if (completed == null) {
       throw new BuiltValueNullFieldError('WorkoutSet', 'completed');
+    }
   }
 
   @override
@@ -748,10 +774,10 @@ class _$WorkoutSet extends WorkoutSet {
   WorkoutSetBuilder toBuilder() => new WorkoutSetBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! WorkoutSet) return false;
-    return plannedReps == other.plannedReps &&
+    return other is WorkoutSet &&
+        plannedReps == other.plannedReps &&
         actualReps == other.actualReps &&
         completed == other.completed;
   }
@@ -801,7 +827,9 @@ class WorkoutSetBuilder implements Builder<WorkoutSet, WorkoutSetBuilder> {
 
   @override
   void replace(WorkoutSet other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$WorkoutSet;
   }
 
@@ -838,11 +866,15 @@ class _$Exercise extends Exercise {
   _$Exercise._(
       {this.plannedExerciseId, this.sets, this.weight, this.suggestion})
       : super._() {
-    if (plannedExerciseId == null)
+    if (plannedExerciseId == null) {
       throw new BuiltValueNullFieldError('Exercise', 'plannedExerciseId');
-    if (sets == null) throw new BuiltValueNullFieldError('Exercise', 'sets');
-    if (weight == null)
+    }
+    if (sets == null) {
+      throw new BuiltValueNullFieldError('Exercise', 'sets');
+    }
+    if (weight == null) {
       throw new BuiltValueNullFieldError('Exercise', 'weight');
+    }
   }
 
   @override
@@ -853,10 +885,10 @@ class _$Exercise extends Exercise {
   ExerciseBuilder toBuilder() => new ExerciseBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Exercise) return false;
-    return plannedExerciseId == other.plannedExerciseId &&
+    return other is Exercise &&
+        plannedExerciseId == other.plannedExerciseId &&
         sets == other.sets &&
         weight == other.weight &&
         suggestion == other.suggestion;
@@ -917,7 +949,9 @@ class ExerciseBuilder implements Builder<Exercise, ExerciseBuilder> {
 
   @override
   void replace(Exercise other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$Exercise;
   }
 
@@ -964,11 +998,15 @@ class _$Workout extends Workout {
       (new WorkoutBuilder()..update(updates)).build();
 
   _$Workout._({this.date, this.exercises, this.rotationIndex}) : super._() {
-    if (date == null) throw new BuiltValueNullFieldError('Workout', 'date');
-    if (exercises == null)
+    if (date == null) {
+      throw new BuiltValueNullFieldError('Workout', 'date');
+    }
+    if (exercises == null) {
       throw new BuiltValueNullFieldError('Workout', 'exercises');
-    if (rotationIndex == null)
+    }
+    if (rotationIndex == null) {
       throw new BuiltValueNullFieldError('Workout', 'rotationIndex');
+    }
   }
 
   @override
@@ -979,10 +1017,10 @@ class _$Workout extends Workout {
   WorkoutBuilder toBuilder() => new WorkoutBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Workout) return false;
-    return date == other.date &&
+    return other is Workout &&
+        date == other.date &&
         exercises == other.exercises &&
         rotationIndex == other.rotationIndex;
   }
@@ -1034,7 +1072,9 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
 
   @override
   void replace(Workout other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$Workout;
   }
 

@@ -12,8 +12,7 @@ final DatabaseReference _db = userDb.child('done');
 
 /// Workouts performed by the user.
 Observable<FireMap<Workout>> get stream => _adapter.stream;
-final _adapter = new FirebaseAdapter<Workout>(
-    _db, (e) => new Workout.fromJson(e),
+final _adapter = FirebaseAdapter<Workout>(_db, (e) => Workout.fromJson(e),
     comparator: (w1, w2) => w2.date.compareTo(w1.date));
 
 /// Initializes the workout database.
@@ -31,19 +30,19 @@ Future<Workout> create(DateTime date) async {
   final rotationIndex = await nextRotationIndex();
   final plan = rotation[rotationIndex];
 
-  final workout = new WorkoutBuilder()
+  final workout = WorkoutBuilder()
     ..rotationIndex = rotationIndex
     ..date = date.millisecondsSinceEpoch;
 
   for (final id in plan.plannedExerciseIds) {
     final lastExercise = await _getLastExercise(id);
 
-    final exercise = new ExerciseBuilder()
+    final exercise = ExerciseBuilder()
       ..plannedExerciseId = id
       ..weight = lastExercise?.weight ?? 0.0
       ..suggestion = _computeSuggestion(lastExercise, plannedExercises);
     for (final plannedSet in plannedExercises[id].sets) {
-      exercise.sets.add(new WorkoutSet((b) => b
+      exercise.sets.add(WorkoutSet((b) => b
         ..completed = false
         ..plannedReps = plannedSet.reps
         ..actualReps = 0));

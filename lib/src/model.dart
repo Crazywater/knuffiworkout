@@ -7,11 +7,10 @@ part 'model.g.dart';
 
 /// [Serializers] to serialize the model classes to JSON.
 @SerializersFor(
-    const [Day, PlannedExercise, PlannedSet, WorkoutSet, Exercise, Workout])
+    [Day, PlannedExercise, PlannedSet, WorkoutSet, Exercise, Workout])
 final Serializers serializersInternal = _$serializersInternal;
-final serializers = (serializersInternal.toBuilder()
-      ..addPlugin(new StandardJsonPlugin()))
-    .build();
+final serializers =
+    (serializersInternal.toBuilder()..addPlugin(StandardJsonPlugin())).build();
 
 /// A day in the rotation of exercises.
 ///
@@ -149,7 +148,7 @@ abstract class Workout implements Built<Workout, WorkoutBuilder> {
   static Serializer<Workout> get serializer => _$workoutSerializer;
 
   /// When this workout was performed.
-  DateTime get dateTime => new DateTime.fromMillisecondsSinceEpoch(date);
+  DateTime get dateTime => DateTime.fromMillisecondsSinceEpoch(date);
 
   /// Timestamp of this workout in millis since epoch.
   int get date;

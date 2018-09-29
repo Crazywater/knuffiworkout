@@ -21,16 +21,15 @@ class WorkoutEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      new StreamWidget1(exercise_db.stream, _rebuild);
+      StreamWidget1(exercise_db.stream, _rebuild);
 
   Widget _rebuild(
       FireMap<PlannedExercise> plannedExercises, BuildContext context) {
     final children = <Widget>[];
     for (var i = 0; i < _workout.exercises.length; i++) {
       final exercise = _workout.exercises[i];
-      final widget = new ExerciseWidget(
-        new ExerciseWrapper(
-            exercise, plannedExercises[exercise.plannedExerciseId]),
+      final widget = ExerciseWidget(
+        ExerciseWrapper(exercise, plannedExercises[exercise.plannedExerciseId]),
         showsSuggestion: showsSuggestion,
         saveSet: (setIndex, set) {
           final newWorkout = _workout.rebuild((w) => w.exercises[i] =
@@ -44,7 +43,7 @@ class WorkoutEditor extends StatelessWidget {
       children.add(widget);
     }
 
-    return new ListView(children: children);
+    return ListView(children: children);
   }
 
   void _save(Workout newWorkout) {

@@ -12,17 +12,17 @@ class MiniFab extends StatelessWidget {
   MiniFab({this.color, @required this.onTap});
 
   @override
-  Widget build(BuildContext context) => new Material(
+  Widget build(BuildContext context) => Material(
         color: color ?? primarySwatch,
         type: MaterialType.circle,
         elevation: 8.0,
-        child: new InkWell(
+        child: InkWell(
           onTap: onTap,
-          child: new Padding(
-            padding: new EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-            child: new Text(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            child: Text(
               '+',
-              style: new TextStyle(fontSize: 18.0, color: Colors.white),
+              style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
           ),
         ),

@@ -19,18 +19,18 @@ class KnuffiCard extends StatelessWidget {
     }
     content.addAll(children);
 
-    Widget cardChild = new Padding(
+    Widget cardChild = Padding(
       padding: cardPadding,
-      child: new Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: content,
       ),
     );
 
     if (onTap != null) {
-      cardChild = new InkWell(onTap: onTap, child: cardChild);
+      cardChild = InkWell(onTap: onTap, child: cardChild);
     }
 
-    return new Card(child: cardChild);
+    return Card(child: cardChild);
   }
 }

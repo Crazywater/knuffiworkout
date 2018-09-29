@@ -13,15 +13,15 @@ class ProgressView extends StatefulWidget {
   ProgressView({Key key}) : super(key: key);
 
   @override
-  _ProgressViewState createState() => new _ProgressViewState();
+  _ProgressViewState createState() => _ProgressViewState();
 }
 
 class _ProgressViewState extends State<ProgressView> {
-  final _viewModel = new BehaviorSubject<ProgressViewModel>(
-      seedValue: ProgressViewModel.defaults);
+  final _viewModel =
+      BehaviorSubject<ProgressViewModel>(seedValue: ProgressViewModel.defaults);
 
   @override
-  Widget build(BuildContext context) => new StreamWidget3(
+  Widget build(BuildContext context) => StreamWidget3(
       workout_db.stream, exercise_db.stream, _viewModel.stream, _rebuild);
 
   @override
@@ -37,13 +37,13 @@ class _ProgressViewState extends State<ProgressView> {
         (left, right) => exercises[left].name.compareTo(exercises[right].name));
     if (!exerciseIds.contains(viewModel.exerciseId)) {
       _updateState((b) => b.exerciseId = exerciseIds.first);
-      return new LinearProgressIndicator();
+      return LinearProgressIndicator();
     }
 
     final selectedExercise = exercises[viewModel.exerciseId];
     if (viewModel.measure.needsWeight && !selectedExercise.hasWeight) {
       _updateState((b) => b.measure = ProgressMeasure.unweighted.first);
-      return new LinearProgressIndicator();
+      return LinearProgressIndicator();
     }
 
     final workoutList = workouts.values.toList();
@@ -55,7 +55,7 @@ class _ProgressViewState extends State<ProgressView> {
       final measures = matchingExercises.map(viewModel.measure.function);
       dataPoints.addAll(measures
           .where((measure) => measure != null)
-          .map((measure) => new ChartPoint(workout.dateTime, measure)));
+          .map((measure) => ChartPoint(workout.dateTime, measure)));
     }
 
     final availableMeasures = selectedExercise.hasWeight
@@ -63,31 +63,31 @@ class _ProgressViewState extends State<ProgressView> {
         : ProgressMeasure.unweighted;
 
     final measureSelector = availableMeasures.length == 1
-        ? new Text(viewModel.measure.name)
-        : new DropdownButton<ProgressMeasure>(
+        ? Text(viewModel.measure.name)
+        : DropdownButton<ProgressMeasure>(
             items: availableMeasures
-                .map((measure) => new DropdownMenuItem(
-                    value: measure, child: new Text(measure.name)))
+                .map((measure) =>
+                    DropdownMenuItem(value: measure, child: Text(measure.name)))
                 .toList(),
             onChanged: (measure) {
               _updateState((b) => b.measure = measure);
             },
             value: viewModel.measure);
 
-    return new Column(
+    return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          new Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                new DropdownButton<String>(
+                DropdownButton<String>(
                     items: exerciseIds
-                        .map((id) => new DropdownMenuItem(
+                        .map((id) => DropdownMenuItem(
                               value: id,
-                              child: new Text(exercises[id].name),
+                              child: Text(exercises[id].name),
                             ))
                         .toList(),
                     onChanged: (exerciseId) {
@@ -98,12 +98,12 @@ class _ProgressViewState extends State<ProgressView> {
               ],
             ),
           ),
-          new Expanded(
-              child: new Padding(
-                  padding: new EdgeInsets.all(16.0),
+          Expanded(
+              child: Padding(
+                  padding: EdgeInsets.all(16.0),
                   child: dataPoints.isEmpty
-                      ? new Text('No data yet')
-                      : new ProgressChart(dataPoints))),
+                      ? Text('No data yet')
+                      : ProgressChart(dataPoints))),
         ]);
   }
 

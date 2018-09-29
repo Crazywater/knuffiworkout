@@ -25,18 +25,17 @@ class WeightWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[
-      new Text('Weight: ${formatWeight(_exercise.weight)}',
+      Text('Weight: ${formatWeight(_exercise.weight)}',
           style: editableHeaderStyle)
     ];
 
     if (showsSuggestion && (_exercise.suggestion > 0.0)) {
-      children
-          .add(new Text('Suggestion: ${formatWeight(_exercise.suggestion)}'));
+      children.add(Text('Suggestion: ${formatWeight(_exercise.suggestion)}'));
     }
 
-    return new InkWell(
+    return InkWell(
       onTap: () => _onEditWeight(_exercise, context),
-      child: new Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: children,
       ),

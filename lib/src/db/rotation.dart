@@ -11,7 +11,7 @@ DatabaseReference get _db => userDb.child('rotation');
 
 /// [Day]s configured by the user.
 Observable<FireMap<Day>> get stream => _adapter.stream;
-final _adapter = new FirebaseAdapter<Day>(_db, (e) => new Day.fromJson(e),
+final _adapter = FirebaseAdapter<Day>(_db, (e) => Day.fromJson(e),
     comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
 /// Initializes the workout rotation database.
@@ -28,7 +28,7 @@ Future initialize() async {
 Future<Null> newDay() async {
   final exercises = await exercise_db.stream.first;
   DatabaseReference ref = _db.push();
-  final workout = new Day((b) => b
+  final workout = Day((b) => b
     ..id = ref.key
     ..plannedExerciseIds.add(exercises.keys.first));
   await ref.update(workout.toJson());
@@ -100,6 +100,6 @@ Future<Null> _populateInitial() async {
   }
 }
 
-Day _plan(List<String> ids) => new Day((b) => b
+Day _plan(List<String> ids) => Day((b) => b
   ..id = ''
   ..plannedExerciseIds.addAll(ids));

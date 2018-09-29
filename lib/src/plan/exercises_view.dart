@@ -9,8 +9,8 @@ import 'package:knuffiworkout/src/plan/exercise_widget.dart';
 /// of exercises they want to perform (name, sets, reps, weighted, ...).
 class PlanExercisesView extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => new ChangeList<PlannedExercise>(
+  Widget build(BuildContext context) => ChangeList<PlannedExercise>(
       changes: exercise_db.stream,
       widgetBuilder: (context, exercises, index) =>
-          new ExerciseWidget(exercises[index]));
+          ExerciseWidget(exercises[index]));
 }

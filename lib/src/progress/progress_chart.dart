@@ -17,12 +17,12 @@ class ProgressChart extends StatelessWidget {
   ProgressChart(List<ChartPoint> points) : _series = _toSeries(points);
 
   @override
-  Widget build(BuildContext context) => new charts.TimeSeriesChart(_series);
+  Widget build(BuildContext context) => charts.TimeSeriesChart(_series);
 }
 
 List<charts.Series<dynamic, DateTime>> _toSeries(List<ChartPoint> points) {
   return [
-    new charts.Series(
+    charts.Series(
         id: 'series',
         data: points,
         domainFn: (point, _) => point.date,

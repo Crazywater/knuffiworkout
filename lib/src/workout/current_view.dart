@@ -10,7 +10,7 @@ class CurrentView extends StatefulWidget {
   CurrentView({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new _CurrentViewState();
+  State<StatefulWidget> createState() => _CurrentViewState();
 }
 
 class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
@@ -26,11 +26,11 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) =>
-      new StreamWidget1(workout_db.stream, _rebuild);
+      StreamWidget1(workout_db.stream, _rebuild);
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    final now = new DateTime.now();
+    final now = DateTime.now();
     if (_tempWorkout != null && _toDay(now) != _toDay(_tempWorkout.dateTime)) {
       setState(() {
         _tempWorkout = null;
@@ -39,7 +39,7 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
   }
 
   Widget _rebuild(FireMap<Workout> workouts, BuildContext context) {
-    final now = new DateTime.now();
+    final now = DateTime.now();
     final today = _toDay(now);
 
     String existingKey;
@@ -59,13 +59,13 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
           _tempWorkout = newWorkout;
         });
       });
-      return new LinearProgressIndicator();
+      return LinearProgressIndicator();
     }
 
-    return new WorkoutEditor(existingKey, existingWorkout ?? _tempWorkout,
+    return WorkoutEditor(existingKey, existingWorkout ?? _tempWorkout,
         showsSuggestion: true);
   }
 
   DateTime _toDay(DateTime timestamp) =>
-      new DateTime(timestamp.year, timestamp.month, timestamp.day);
+      DateTime(timestamp.year, timestamp.month, timestamp.day);
 }

@@ -21,16 +21,16 @@ class ChangeList<T> extends StatefulWidget {
   ChangeList({@required this.changes, @required this.widgetBuilder});
 
   @override
-  _ChangeListState<T> createState() => new _ChangeListState<T>();
+  _ChangeListState<T> createState() => _ChangeListState<T>();
 }
 
 class _ChangeListState<T> extends State<ChangeList<T>> {
-  final _scrollController = new ScrollController();
+  final _scrollController = ScrollController();
   List<T> items;
 
   @override
   Widget build(BuildContext context) =>
-      new StreamWidget1<FireMap<T>>(widget.changes, _rebuild);
+      StreamWidget1<FireMap<T>>(widget.changes, _rebuild);
 
   Widget _rebuild(FireMap<T> snapshot, BuildContext context) {
     final newItems = snapshot.values.toList();
@@ -41,7 +41,7 @@ class _ChangeListState<T> extends State<ChangeList<T>> {
       _triggerScrollToEnd();
     }
 
-    return new ListView.builder(
+    return ListView.builder(
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) =>
           widget.widgetBuilder(context, items, index),
@@ -51,7 +51,7 @@ class _ChangeListState<T> extends State<ChangeList<T>> {
   }
 
   Future _triggerScrollToEnd() async {
-    await new Future.delayed(const Duration(milliseconds: 50));
+    await Future.delayed(const Duration(milliseconds: 50));
     _scrollController.animateTo(999999.0,
         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
   }

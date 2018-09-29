@@ -9,9 +9,8 @@ part 'progress_view_model.g.dart';
 abstract class ProgressViewModel
     implements Built<ProgressViewModel, ProgressViewModelBuilder> {
   /// Default [ProgressViewModel] when opening the view.
-  static final ProgressViewModel defaults = (new ProgressViewModelBuilder()
-        ..measure = ProgressMeasure.oneRepMax)
-      .build();
+  static final ProgressViewModel defaults =
+      (ProgressViewModelBuilder()..measure = ProgressMeasure.oneRepMax).build();
 
   /// Currently selected [ProgressMeasure].
   ProgressMeasure get measure;
@@ -49,12 +48,11 @@ class ProgressMeasure {
       all.where((measure) => !measure.needsWeight).toList();
 
   /// Weight for the exercise.
-  static final weight = new ProgressMeasure(
-      'Weight', (exercise) => exercise.weight,
+  static final weight = ProgressMeasure('Weight', (exercise) => exercise.weight,
       needsWeight: true);
 
   /// Total reps, across sets.
-  static final reps = new ProgressMeasure('Total reps', (exercise) {
+  static final reps = ProgressMeasure('Total reps', (exercise) {
     int reps = 0;
     for (final set in exercise.sets) {
       reps += set.actualReps;
@@ -63,8 +61,7 @@ class ProgressMeasure {
   });
 
   /// Estimated one-rep max, based on reps and weight of the last set.
-  static final oneRepMax =
-      new ProgressMeasure('Estimated 1-rep max', (exercise) {
+  static final oneRepMax = ProgressMeasure('Estimated 1-rep max', (exercise) {
     final reps = exercise.sets.last.actualReps;
     if (reps == 0) return null;
     final weight = exercise.weight;

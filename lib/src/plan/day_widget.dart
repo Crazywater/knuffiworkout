@@ -48,9 +48,9 @@ class DayWidget extends StatelessWidget {
         },
       ));
     }
-    children.add(new Row(
+    children.add(Row(
       children: [
-        new MiniFab(onTap: () {
+        MiniFab(onTap: () {
           rotation_db.update(_day
               .rebuild((b) => b.plannedExerciseIds.add(_exercises.keys.first)));
         }),
@@ -62,25 +62,25 @@ class DayWidget extends StatelessWidget {
     final headerStyle = isCurrent
         ? headerTextStyle.copyWith(fontWeight: FontWeight.bold)
         : headerTextStyle;
-    return new KnuffiCard(
-        header: new Row(
+    return KnuffiCard(
+        header: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            new Text(title, style: headerStyle),
-            new Row(children: [
-              new IconButton(
+            Text(title, style: headerStyle),
+            Row(children: [
+              IconButton(
                 icon: const Icon(Icons.arrow_upward),
                 onPressed: () {
                   rotation_db.moveUp(_day);
                 },
               ),
-              new IconButton(
+              IconButton(
                 icon: const Icon(Icons.arrow_downward),
                 onPressed: () {
                   rotation_db.moveDown(_day);
                 },
               ),
-              new IconButton(
+              IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () {
                   rotation_db.remove(_day);
@@ -95,16 +95,16 @@ class DayWidget extends StatelessWidget {
   Widget _renderExercise(String exerciseId,
       {@required ValueChanged<String> onChanged,
       @required VoidCallback onRemoved}) {
-    return new Row(
+    return Row(
       children: [
-        new DropdownButton<String>(
+        DropdownButton<String>(
             value: exerciseId,
             items: _sortedExercises
-                .map((exercise) => new DropdownMenuItem(
-                    value: exercise.id, child: new Text(exercise.name)))
+                .map((exercise) => DropdownMenuItem(
+                    value: exercise.id, child: Text(exercise.name)))
                 .toList(),
             onChanged: onChanged),
-        new IconButton(
+        IconButton(
           onPressed: onRemoved,
           icon: const Icon(Icons.close),
         )

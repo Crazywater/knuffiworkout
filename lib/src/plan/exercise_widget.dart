@@ -27,22 +27,22 @@ class ExerciseWidget extends StatelessWidget {
       setEditor.add(_renderSet(exercise, i, context));
     }
     if (exercise.sets.length < 5) {
-      setEditor.add(new MiniFab(onTap: () {
+      setEditor.add(MiniFab(onTap: () {
         _addSet(exercise);
       }));
     }
 
     final editors = <Widget>[
-      new Row(
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: setEditor,
       ),
-      new InkWell(
-        child: new Row(
+      InkWell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            new Text('Weighted', style: mediumTextStyle),
-            new Checkbox(
+            Text('Weighted', style: mediumTextStyle),
+            Checkbox(
               value: exercise.hasWeight,
               onChanged: (bool value) {
                 _setWeighted(exercise, value);
@@ -53,12 +53,11 @@ class ExerciseWidget extends StatelessWidget {
       )
     ];
     if (exercise.hasWeight) {
-      final increaseText = 'Increase by ${formatWeight(
-          exercise.increase)}';
-      final decreaseText = 'Decrease by ${formatPercent(
-          exercise.decreaseFactor)}';
+      final increaseText = 'Increase by ${formatWeight(exercise.increase)}';
+      final decreaseText =
+          'Decrease by ${formatPercent(exercise.decreaseFactor)}';
       editors.add(
-        new Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _editableText(decreaseText, onTap: () {
@@ -72,7 +71,7 @@ class ExerciseWidget extends StatelessWidget {
       );
     }
 
-    return new KnuffiCard(
+    return KnuffiCard(
       header: header,
       children: editors,
     );
@@ -80,9 +79,9 @@ class ExerciseWidget extends StatelessWidget {
 
   Widget _renderSet(PlannedExercise exercise, int index, BuildContext context) {
     final reps = exercise.sets[index].reps;
-    return new Padding(
-        padding: new EdgeInsets.only(right: 8.0),
-        child: new SetButton(
+    return Padding(
+        padding: EdgeInsets.only(right: 8.0),
+        child: SetButton(
             reps: reps,
             isElevated: true,
             onTap: () {
@@ -92,7 +91,7 @@ class ExerciseWidget extends StatelessWidget {
 
   Widget _editableText(String text,
           {@required GestureTapCallback onTap, @required TextStyle style}) =>
-      new InkWell(child: new Text(text, style: style), onTap: onTap);
+      InkWell(child: Text(text, style: style), onTap: onTap);
 
   Future _editName(PlannedExercise exercise, BuildContext context) async {
     final oldValue = exercise.name;
@@ -104,8 +103,8 @@ class ExerciseWidget extends StatelessWidget {
 
   Future _addSet(PlannedExercise exercise) async {
     final lastSet = exercise.sets.last;
-    await exercise_db.update(exercise.rebuild(
-        (b) => b..sets.add(new PlannedSet((b) => b.reps = lastSet.reps))));
+    await exercise_db.update(exercise
+        .rebuild((b) => b..sets.add(PlannedSet((b) => b.reps = lastSet.reps))));
   }
 
   Future _setWeighted(PlannedExercise exercise, bool value) async {
@@ -125,7 +124,7 @@ class ExerciseWidget extends StatelessWidget {
       PlannedExercise exercise, BuildContext context) async {
     final newString = await showEditDialog(
         'Decrease by', formatPercentage(exercise.decreaseFactor), context,
-        decoration: new InputDecoration(suffixText: '%'));
+        decoration: InputDecoration(suffixText: '%'));
     if (newString == null) return;
     var newValue = double.tryParse(newString) ?? 0.0;
     if (newValue > 100.0) newValue = 100.0;

@@ -5,7 +5,7 @@ import 'dart:math' as math;
 /// initializes.
 class SplashScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new SplashScreenState();
+  State<StatefulWidget> createState() => SplashScreenState();
 }
 
 class SplashScreenState extends State<SplashScreen>
@@ -22,32 +22,31 @@ class SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(
+    _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat();
-    _animation =
-        new CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
   }
 
   @override
   Widget build(BuildContext context) {
-    final image = new DecoratedBox(
-      decoration: new BoxDecoration(
-        image: new DecorationImage(
-          image: new AssetImage('assets/weight.png'),
+    final image = DecoratedBox(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/weight.png'),
         ),
       ),
     );
 
-    return new DecoratedBox(
-      decoration: new BoxDecoration(color: Colors.white),
-      child: new Padding(
-        padding: new EdgeInsets.all(64.0),
-        child: new AnimatedBuilder(
+    return DecoratedBox(
+      decoration: BoxDecoration(color: Colors.white),
+      child: Padding(
+        padding: EdgeInsets.all(64.0),
+        child: AnimatedBuilder(
           animation: _animation,
-          builder: (a, b) => new Transform(
-                transform: new Matrix4.translationValues(
+          builder: (a, b) => Transform(
+                transform: Matrix4.translationValues(
                     0.0, -100.0 * math.sin(math.pi * _animation.value), 0.0),
                 alignment: Alignment.center,
                 child: image,

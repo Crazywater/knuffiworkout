@@ -20,18 +20,18 @@ class SetButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backgroundColor = color ?? defaultSetColor;
-    return new Material(
+    return Material(
       color: backgroundColor,
-      borderRadius: new BorderRadius.all(new Radius.circular(8.0)),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
       elevation: isElevated ? 8.0 : 0.0,
-      child: new InkWell(
+      child: InkWell(
         onTap: onTap,
         onLongPress: onLongPress,
-        child: new Padding(
-          padding: new EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          child: new Text(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          child: Text(
             '$reps',
-            style: new TextStyle(
+            style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 color: textColor(backgroundColor)),
