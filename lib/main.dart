@@ -77,6 +77,7 @@ Future<FirebaseUser> _initializeUser() async {
     googleUser = await googleSignIn.signIn();
   }
   final googleAuth = await googleUser.authentication;
-  return await FirebaseAuth.instance.signInWithGoogle(
+  final credential = GoogleAuthProvider.getCredential(
       idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
