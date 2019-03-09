@@ -42,7 +42,7 @@ class WeightWidget extends StatelessWidget {
     );
   }
 
-  Future<void>_onEditWeight(Exercise exercise, BuildContext context) async {
+  Future<void> _onEditWeight(Exercise exercise, BuildContext context) async {
     final text = await showEditDialog(
         'Edit weight', '${formatWeight(exercise.weight)}', context);
     if (text == null) return;

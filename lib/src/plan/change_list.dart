@@ -50,7 +50,7 @@ class _ChangeListState<T> extends State<ChangeList<T>> {
     );
   }
 
-  Future<void>_triggerScrollToEnd() async {
+  Future<void> _triggerScrollToEnd() async {
     await Future.delayed(const Duration(milliseconds: 50));
     _scrollController.animateTo(999999.0,
         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);

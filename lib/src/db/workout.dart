@@ -103,12 +103,12 @@ class WorkoutDb {
   }
 
   /// Persists a new [Workout] to the database.
-  Future<void>push(Workout workout) async {
+  Future<void> push(Workout workout) async {
     await _db.push().set(workout.toJson());
   }
 
   /// Updates an existing [Workout].
-  Future<void>save(String key, Workout workout) async {
+  Future<void> save(String key, Workout workout) async {
     await _db.child(key).set(workout.toJson());
   }
 

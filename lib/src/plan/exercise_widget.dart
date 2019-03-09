@@ -93,7 +93,7 @@ class ExerciseWidget extends StatelessWidget {
           {@required GestureTapCallback onTap, @required TextStyle style}) =>
       InkWell(child: Text(text, style: style), onTap: onTap);
 
-  Future<void>_editName(PlannedExercise exercise, BuildContext context) async {
+  Future<void> _editName(PlannedExercise exercise, BuildContext context) async {
     final oldValue = exercise.name;
     final newValue = await showEditDialog('Rename exercise', oldValue, context,
         keyboardType: TextInputType.text);
@@ -101,17 +101,18 @@ class ExerciseWidget extends StatelessWidget {
     await db.exercises.update(exercise.rebuild((b) => b..name = newValue));
   }
 
-  Future<void>_addSet(PlannedExercise exercise) async {
+  Future<void> _addSet(PlannedExercise exercise) async {
     final lastSet = exercise.sets.last;
     await db.exercises.update(exercise
         .rebuild((b) => b..sets.add(PlannedSet((b) => b.reps = lastSet.reps))));
   }
 
-  Future<void>_setWeighted(PlannedExercise exercise, bool value) async {
+  Future<void> _setWeighted(PlannedExercise exercise, bool value) async {
     await db.exercises.update(exercise.rebuild((b) => b.hasWeight = value));
   }
 
-  Future<void>_editIncrease(PlannedExercise exercise, BuildContext context) async {
+  Future<void> _editIncrease(
+      PlannedExercise exercise, BuildContext context) async {
     final oldValue = exercise.increase;
     final newString = await showEditDialog(
         'Increase by', formatWeight(exercise.increase), context);
@@ -120,7 +121,7 @@ class ExerciseWidget extends StatelessWidget {
     await db.exercises.update(exercise.rebuild((b) => b.increase = newValue));
   }
 
-  Future<void>_editDecreaseFactor(
+  Future<void> _editDecreaseFactor(
       PlannedExercise exercise, BuildContext context) async {
     final newString = await showEditDialog(
         'Decrease by', formatPercentage(exercise.decreaseFactor), context,
@@ -132,7 +133,7 @@ class ExerciseWidget extends StatelessWidget {
         .update(exercise.rebuild((b) => b.decreaseFactor = newValue / 100.0));
   }
 
-  Future<void>_editReps(PlannedExercise exercise, int index, int oldValue,
+  Future<void> _editReps(PlannedExercise exercise, int index, int oldValue,
       BuildContext context) async {
     final newString = await showEditDialog('Reps', '$oldValue', context);
     if (newString == null) return;

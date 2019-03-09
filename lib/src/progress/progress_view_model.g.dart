@@ -26,11 +26,11 @@ class _$ProgressViewModel extends ProgressViewModel {
   final String exerciseId;
 
   factory _$ProgressViewModel([void updates(ProgressViewModelBuilder b)]) =>
-      (new ProgressViewModelBuilder()..update(updates)).build();
+      (ProgressViewModelBuilder()..update(updates)).build();
 
   _$ProgressViewModel._({this.measure, this.exerciseId}) : super._() {
     if (measure == null) {
-      throw new BuiltValueNullFieldError('ProgressViewModel', 'measure');
+      throw BuiltValueNullFieldError('ProgressViewModel', 'measure');
     }
   }
 
@@ -40,7 +40,7 @@ class _$ProgressViewModel extends ProgressViewModel {
 
   @override
   ProgressViewModelBuilder toBuilder() =>
-      new ProgressViewModelBuilder()..replace(this);
+      ProgressViewModelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,7 +90,7 @@ class ProgressViewModelBuilder
   @override
   void replace(ProgressViewModel other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ProgressViewModel;
   }
@@ -102,8 +102,8 @@ class ProgressViewModelBuilder
 
   @override
   _$ProgressViewModel build() {
-    final _$result = _$v ??
-        new _$ProgressViewModel._(measure: measure, exerciseId: exerciseId);
+    final _$result =
+        _$v ?? _$ProgressViewModel._(measure: measure, exerciseId: exerciseId);
     replace(_$result);
     return _$result;
   }

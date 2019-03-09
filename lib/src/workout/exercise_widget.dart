@@ -83,7 +83,8 @@ class ExerciseWidget extends StatelessWidget {
         onLongPress: () => _onEditReps(index, set, context),
       );
 
-  Future<void>_onEditReps(int index, WorkoutSet set, BuildContext context) async {
+  Future<void> _onEditReps(
+      int index, WorkoutSet set, BuildContext context) async {
     final text =
         await showEditDialog('Edit reps', '${set.actualReps}', context);
     if (text == null) return;
