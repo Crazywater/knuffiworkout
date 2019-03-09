@@ -94,7 +94,7 @@ class DayWidget extends StatelessWidget {
 
   Widget _renderExercise(String exerciseId,
       {@required ValueChanged<String> onChanged,
-      @required VoidCallback onRemoved}) {
+      @required void Function() onRemoved}) {
     return Row(
       children: [
         DropdownButton<String>(

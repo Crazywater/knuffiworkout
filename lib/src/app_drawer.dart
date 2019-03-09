@@ -11,7 +11,7 @@ class DrawerItem {
   final bool hasDividerAfter;
   final IconData icon;
   final String name;
-  final VoidCallback onTap;
+  final void Function() onTap;
 
   DrawerItem(this.icon, this.name,
       {@required this.onTap,

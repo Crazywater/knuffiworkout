@@ -116,7 +116,7 @@ class _DrawerConfig {
 }
 
 /// Renders a floating plus button (FAB).
-FloatingActionButton renderFab({VoidCallback onPressed}) =>
+FloatingActionButton renderFab({void Function() onPressed}) =>
     FloatingActionButton(
         backgroundColor: fabColor,
         child: Icon(Icons.add),
