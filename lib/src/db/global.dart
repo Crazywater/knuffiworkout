@@ -19,10 +19,7 @@ Database get db => _db;
 Database _db;
 
 /// Initializes [db] for Firebase.
-Future<void> initializeDb(String userId) async {
-  await FirebaseDatabase.instance.setPersistenceEnabled(true);
-
-  final rootRef = FirebaseDatabase.instance.reference();
+Future<void> initializeDb(String userId, DatabaseReference rootRef) async {
   final userRef = rootRef.child('user/$userId');
 
   final exerciseRef = userRef.child('exercise');

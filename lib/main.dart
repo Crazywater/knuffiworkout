@@ -1,19 +1,26 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:knuffiworkout/src/db/global.dart';
+import 'package:knuffiworkout/src/db/testing/fake_firebase.dart';
 import 'package:knuffiworkout/src/routes.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart' as colors;
 import 'package:knuffiworkout/src/widgets/splash_screen.dart';
 
 void main() {
-  runApp(App());
+  runApp(App(usesFakeDb: false));
 }
 
 /// The main Knuffiworkout app widget.
 class App extends StatefulWidget {
+  /// Whether to use an in-memory fake database instead of real Firebase.
+  final bool usesFakeDb;
+
+  const App({Key key, this.usesFakeDb}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _AppState();
 }
@@ -29,7 +36,12 @@ class _AppState extends State<App> {
 
   Future<void> _init() async {
     final user = await _initializeUser();
-    await initializeDb(user.uid);
+
+    final rootRef = widget.usesFakeDb
+        ? FakeFirebase().root()
+        : FirebaseDatabase.instance.reference();
+
+    await initializeDb(user.uid, rootRef);
 
     setState(() {
       isInitialized = true;
