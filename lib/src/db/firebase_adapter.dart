@@ -38,7 +38,7 @@ class FirebaseAdapter<T> {
   /// Starts listening on the given query.
   ///
   /// Emits the initial state in [stream].
-  Future<Null> open() async {
+  Future<void> open() async {
     assert(_subscriptions == null, "Already open!");
 
     _map = FireMap<T>(_comparator);

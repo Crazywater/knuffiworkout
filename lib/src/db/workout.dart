@@ -23,7 +23,7 @@ class WorkoutDb {
   /// Initializes the workout database.
   ///
   /// Must be called once before accessing [stream].
-  Future<Null> initialize() => _adapter.open();
+  Future<void> initialize() => _adapter.open();
 
   /// Creates a new workout at the given day.
   ///
@@ -103,12 +103,12 @@ class WorkoutDb {
   }
 
   /// Persists a new [Workout] to the database.
-  Future push(Workout workout) async {
+  Future<void>push(Workout workout) async {
     await _db.push().set(workout.toJson());
   }
 
   /// Updates an existing [Workout].
-  Future save(String key, Workout workout) async {
+  Future<void>save(String key, Workout workout) async {
     await _db.child(key).set(workout.toJson());
   }
 

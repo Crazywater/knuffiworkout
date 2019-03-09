@@ -22,7 +22,7 @@ class RotationDb {
   /// Initializes the workout rotation database.
   ///
   /// Must be called once before accessing [stream].
-  Future initialize() async {
+  Future<void> initialize() async {
     await _adapter.open();
     if ((await stream.first).isEmpty) {
       await _populateInitial();
@@ -30,7 +30,7 @@ class RotationDb {
   }
 
   /// Adds a new [Day] to the rotation.
-  Future<Null> newDay() async {
+  Future<void> newDay() async {
     final exercises = await _exerciseDb.stream.first;
     DatabaseReference ref = _db.push();
     final workout = Day((b) => b
@@ -40,32 +40,32 @@ class RotationDb {
   }
 
   /// Updates an existing [Day] with new data.
-  Future<Null> update(Day value) async {
+  Future<void> update(Day value) async {
     await _db.child(value.id).update(value.toJson());
   }
 
   /// Moves a [Day] one day earlier the rotation.
-  Future<Null> moveUp(Day workout) async {
+  Future<void> moveUp(Day workout) async {
     final workouts = (await stream.first).values.toList();
     final index = workouts.indexWhere((w) => w.id == workout.id);
     await _swap(workouts, index, (index - 1) % workouts.length);
   }
 
   /// Moves a [Day] one day later in the rotation.
-  Future<Null> moveDown(Day workout) async {
+  Future<void> moveDown(Day workout) async {
     final workouts = (await stream.first).values.toList();
     final index = workouts.indexWhere((w) => w.id == workout.id);
     await _swap(workouts, index, (index + 1) % workouts.length);
   }
 
   /// Deletes a [Day] from the rotation.
-  Future<Null> remove(Day value) async {
+  Future<void> remove(Day value) async {
     await _db.child(value.id).remove();
   }
 
   /// Swaps two days.
   // TODO: Make this atomic.
-  Future<Null> _swap(List<Day> workouts, int i, int j) async {
+  Future<void> _swap(List<Day> workouts, int i, int j) async {
     final iId = workouts[i].id;
     final jId = workouts[j].id;
 
@@ -76,7 +76,7 @@ class RotationDb {
   }
 
   /// Initializes the rotation database with sample data.
-  Future<Null> _populateInitial() async {
+  Future<void> _populateInitial() async {
     final exercises = (await _exerciseDb.stream.first).values.toList();
     final _chinUps = exercises[0].id;
     final _ohp = exercises[1].id;

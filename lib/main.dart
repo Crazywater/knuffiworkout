@@ -27,7 +27,7 @@ class _AppState extends State<App> {
     _init();
   }
 
-  Future _init() async {
+  Future<void>_init() async {
     final user = await _initializeUser();
     await initializeDb(user.uid);
 

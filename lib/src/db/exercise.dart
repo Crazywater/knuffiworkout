@@ -21,7 +21,7 @@ class ExerciseDb {
   /// Initializes the database of planned exercises from Firebase.
   ///
   /// Must be called once before accessing [stream].
-  Future initialize() async {
+  Future<void>initialize() async {
     await _adapter.open();
     if ((await stream.first).isEmpty) {
       await _populateInitial();
@@ -29,7 +29,7 @@ class ExerciseDb {
   }
 
   /// Creates a new exercise.
-  Future<Null> createNew() async {
+  Future<void> createNew() async {
     DatabaseReference ref = _db.push();
     final exercise = PlannedExercise((b) => b
       ..id = ref.key
@@ -42,12 +42,12 @@ class ExerciseDb {
   }
 
   /// Updates data for an existing exercise.
-  Future<Null> update(PlannedExercise value) async {
+  Future<void> update(PlannedExercise value) async {
     await _db.child(value.id).update(value.toJson());
   }
 
   /// Initializes the planned exercise database with sample data.
-  Future _populateInitial() async {
+  Future<void>_populateInitial() async {
     for (final exercise in initial_data.exercises) {
       DatabaseReference ref = _db.push();
       await ref.update((exercise.rebuild((b) => b..id = ref.key)).toJson());
