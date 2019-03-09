@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/app_drawer.dart';
-import 'package:knuffiworkout/src/db/exercise.dart' as exercise_db;
-import 'package:knuffiworkout/src/db/rotation.dart' as rotation_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/plan/exercises_view.dart';
 import 'package:knuffiworkout/src/plan/rotation_view.dart';
 import 'package:knuffiworkout/src/progress/progress_view.dart';
@@ -46,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
         _DrawerConfig(icon: Icons.settings),
         (_) => PlanExercisesView(),
         fabBuilder: (_) => renderFab(onPressed: () {
-              exercise_db.createNew();
+              db.exercises.createNew();
             }),
       ),
       _View(
@@ -54,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
         _DrawerConfig(icon: Icons.event),
         (_) => RotationView(),
         fabBuilder: (_) => renderFab(onPressed: () {
-              rotation_db.newDay();
+              db.rotation.newDay();
             }),
       ),
     ];

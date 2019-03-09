@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/db/firebase_adapter.dart';
-import 'package:knuffiworkout/src/db/workout.dart' as workout_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:knuffiworkout/src/workout/workout_editor.dart';
@@ -26,7 +26,7 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) =>
-      StreamWidget1(workout_db.stream, _rebuild);
+      StreamWidget1(db.workouts.stream, _rebuild);
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -54,7 +54,7 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
     });
 
     if (existingWorkout == null && _tempWorkout == null) {
-      workout_db.create(now).then((newWorkout) {
+      db.workouts.create(now).then((newWorkout) {
         setState(() {
           _tempWorkout = newWorkout;
         });

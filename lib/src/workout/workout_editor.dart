@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/exercise.dart' as exercise_db;
 import 'package:knuffiworkout/src/db/firebase_adapter.dart';
-import 'package:knuffiworkout/src/db/workout.dart' as workout_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:knuffiworkout/src/workout/exercise_widget.dart';
@@ -21,7 +20,7 @@ class WorkoutEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      StreamWidget1(exercise_db.stream, _rebuild);
+      StreamWidget1(db.exercises.stream, _rebuild);
 
   Widget _rebuild(
       FireMap<PlannedExercise> plannedExercises, BuildContext context) {
@@ -48,9 +47,9 @@ class WorkoutEditor extends StatelessWidget {
 
   void _save(Workout newWorkout) {
     if (_key != null) {
-      workout_db.save(_key, newWorkout);
+      db.workouts.save(_key, newWorkout);
     } else {
-      workout_db.push(newWorkout);
+      db.workouts.push(newWorkout);
     }
   }
 }

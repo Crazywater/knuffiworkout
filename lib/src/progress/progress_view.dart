@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/exercise.dart' as exercise_db;
 import 'package:knuffiworkout/src/db/firebase_adapter.dart';
-import 'package:knuffiworkout/src/db/workout.dart' as workout_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/progress/progress_chart.dart';
 import 'package:knuffiworkout/src/progress/progress_view_model.dart';
@@ -22,7 +21,7 @@ class _ProgressViewState extends State<ProgressView> {
 
   @override
   Widget build(BuildContext context) => StreamWidget3(
-      workout_db.stream, exercise_db.stream, _viewModel.stream, _rebuild);
+      db.workouts.stream, db.exercises.stream, _viewModel.stream, _rebuild);
 
   @override
   void dispose() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/db/firebase_adapter.dart';
-import 'package:knuffiworkout/src/db/rotation.dart' as rotation_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/mini_fab.dart';
@@ -39,11 +39,11 @@ class DayWidget extends StatelessWidget {
       children.add(_renderExercise(
         id,
         onChanged: (newId) {
-          rotation_db
+          db.rotation
               .update(_day.rebuild((b) => b.plannedExerciseIds[i] = newId));
         },
         onRemoved: () {
-          rotation_db
+          db.rotation
               .update(_day.rebuild((b) => b.plannedExerciseIds.removeAt(i)));
         },
       ));
@@ -51,7 +51,7 @@ class DayWidget extends StatelessWidget {
     children.add(Row(
       children: [
         MiniFab(onTap: () {
-          rotation_db.update(_day
+          db.rotation.update(_day
               .rebuild((b) => b.plannedExerciseIds.add(_exercises.keys.first)));
         }),
       ],
@@ -71,19 +71,19 @@ class DayWidget extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.arrow_upward),
                 onPressed: () {
-                  rotation_db.moveUp(_day);
+                  db.rotation.moveUp(_day);
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.arrow_downward),
                 onPressed: () {
-                  rotation_db.moveDown(_day);
+                  db.rotation.moveDown(_day);
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () {
-                  rotation_db.remove(_day);
+                  db.rotation.remove(_day);
                 },
               )
             ]),

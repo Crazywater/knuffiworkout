@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/exercise.dart' as exercise_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/formatter.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
@@ -98,17 +98,17 @@ class ExerciseWidget extends StatelessWidget {
     final newValue = await showEditDialog('Rename exercise', oldValue, context,
         keyboardType: TextInputType.text);
     if (newValue == null || newValue.isEmpty || oldValue == newValue) return;
-    await exercise_db.update(exercise.rebuild((b) => b..name = newValue));
+    await db.exercises.update(exercise.rebuild((b) => b..name = newValue));
   }
 
   Future _addSet(PlannedExercise exercise) async {
     final lastSet = exercise.sets.last;
-    await exercise_db.update(exercise
+    await db.exercises.update(exercise
         .rebuild((b) => b..sets.add(PlannedSet((b) => b.reps = lastSet.reps))));
   }
 
   Future _setWeighted(PlannedExercise exercise, bool value) async {
-    await exercise_db.update(exercise.rebuild((b) => b.hasWeight = value));
+    await db.exercises.update(exercise.rebuild((b) => b.hasWeight = value));
   }
 
   Future _editIncrease(PlannedExercise exercise, BuildContext context) async {
@@ -117,7 +117,7 @@ class ExerciseWidget extends StatelessWidget {
         'Increase by', formatWeight(exercise.increase), context);
     if (newString == null) return;
     final newValue = double.tryParse(newString) ?? oldValue;
-    await exercise_db.update(exercise.rebuild((b) => b.increase = newValue));
+    await db.exercises.update(exercise.rebuild((b) => b.increase = newValue));
   }
 
   Future _editDecreaseFactor(
@@ -128,7 +128,7 @@ class ExerciseWidget extends StatelessWidget {
     if (newString == null) return;
     var newValue = double.tryParse(newString) ?? 0.0;
     if (newValue > 100.0) newValue = 100.0;
-    await exercise_db
+    await db.exercises
         .update(exercise.rebuild((b) => b.decreaseFactor = newValue / 100.0));
   }
 
@@ -149,6 +149,6 @@ class ExerciseWidget extends StatelessWidget {
       builder.sets[index] =
           builder.sets[index].rebuild((b) => b.reps = newValue);
     }
-    await exercise_db.update(builder.build());
+    await db.exercises.update(builder.build());
   }
 }

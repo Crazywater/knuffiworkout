@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/exercise.dart' as exercise_db;
 import 'package:knuffiworkout/src/db/firebase_adapter.dart';
-import 'package:knuffiworkout/src/db/workout.dart' as workout_db;
+import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/formatter.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/routes.dart';
@@ -16,7 +15,7 @@ class PastView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      StreamWidget2(workout_db.stream, exercise_db.stream, _rebuild);
+      StreamWidget2(db.workouts.stream, db.exercises.stream, _rebuild);
 
   Widget _rebuild(FireMap<Workout> workouts, FireMap<PlannedExercise> exercises,
       BuildContext context) {
