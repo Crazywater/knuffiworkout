@@ -52,15 +52,15 @@ class _AppState extends State<App> {
       ),
       routes: Map.fromIterable(directMappedRoutes,
           key: (route) => route.path, value: (route) => route.buildWidget),
-      onGenerateRoute: _getRoute,
+      onGenerateRoute: _route,
     );
   }
 
-  Route<Null> _getRoute(RouteSettings settings) {
+  Route<void> _route(RouteSettings settings) {
     final path = settings.name.split('/');
     if (path[0] != '') return null;
     if (path[1] == editScreen.path.substring(1)) {
-      return MaterialPageRoute<Null>(
+      return MaterialPageRoute<void>(
           settings: settings, builder: editScreen.pathParser(path.sublist(2)));
     }
     return null;

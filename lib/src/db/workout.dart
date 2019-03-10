@@ -40,7 +40,7 @@ class WorkoutDb {
       ..date = date.millisecondsSinceEpoch;
 
     for (final id in plan.plannedExerciseIds) {
-      final lastExercise = await _getLastExercise(id);
+      final lastExercise = await _lastExercise(id);
 
       final exercise = ExerciseBuilder()
         ..plannedExerciseId = id
@@ -113,7 +113,7 @@ class WorkoutDb {
   }
 
   /// Returns the most recently performed [Exercise] of the given ID.
-  Future<Exercise> _getLastExercise(String exerciseId) async {
+  Future<Exercise> _lastExercise(String exerciseId) async {
     final workouts = await stream.first;
     for (final workout in workouts.values) {
       for (final exercise in workout.exercises) {
