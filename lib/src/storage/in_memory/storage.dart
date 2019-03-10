@@ -17,7 +17,7 @@ class InMemoryStorage implements Storage {
   /// If [value] is `null`, the value is removed.
   ///
   /// Fires events for change, add and remove as a side-effect.
-  void _set(List<String> path, dynamic value) {
+  void operator []=(List<String> path, dynamic value) {
     final map = _parent(path);
     if (value == null) {
       map[path.last].remove(value);
@@ -47,7 +47,7 @@ class InMemoryStorage implements Storage {
   /// Gets the value of [path].
   ///
   /// If any map on the path or the value itself doesn't exist, returns `null`.
-  dynamic _get(List<String> path) {
+  dynamic operator [](List<String> path) {
     var value = _data;
     for (final part in path) {
       if (!value.containsKey(part)) return null;
@@ -62,12 +62,12 @@ class InMemoryStorage implements Storage {
   }
 
   void _fireAdd(List<String> path) {
-    _eventController.add(_Event.add(path, _get(path)));
+    _eventController.add(_Event.add(path, this[path]));
     if (path.length > 1) _fireChange(_parentPath(path));
   }
 
   void _fireChange(List<String> path) {
-    _eventController.add(_Event.change(path, _get(path)));
+    _eventController.add(_Event.change(path, this[path]));
     if (path.length > 1) _fireChange(_parentPath(path));
   }
 
@@ -75,7 +75,7 @@ class InMemoryStorage implements Storage {
       path.sublist(0, path.length - 1);
 
   Stream<_Event> get _events => _eventController.stream;
-  final _eventController = StreamController<_Event>.broadcast();
+  final _eventController = StreamController<_Event>.broadcast(sync: true);
 
   /// Reference to the root of this storage.
   InMemoryReference get root => InMemoryReference(this, []);
@@ -115,14 +115,12 @@ class InMemoryReference implements Reference {
 
   @override
   Future<void> remove() async {
-    _db._set(_path, null);
-    await Future(() {});
+    _db[_path] = null;
   }
 
   @override
   Future<void> set(dynamic value, {dynamic priority}) async {
-    _db._set(_path, value);
-    await Future(() {});
+    _db[_path] = value;
   }
 
   /// All events of type [type] that are for direct children of this reference.
