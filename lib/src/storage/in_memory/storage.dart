@@ -105,7 +105,7 @@ class InMemoryReference implements Reference {
   Stream<Event> get onChildRemoved => _events(_EventType.remove);
 
   @override
-  Future<Snapshot> once() async => Snapshot(_path.last, _db._get(_path));
+  Future<void> loadInitialData() async {}
 
   @override
   InMemoryReference push() {
@@ -116,12 +116,6 @@ class InMemoryReference implements Reference {
   @override
   Future<void> remove() async {
     _db._set(_path, null);
-    await Future(() {});
-  }
-
-  @override
-  Future<void> update(Map<String, dynamic> value) async {
-    _db._set(_path, value);
     await Future(() {});
   }
 

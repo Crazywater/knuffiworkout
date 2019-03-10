@@ -24,7 +24,7 @@ class FirebaseReference implements Reference {
   Stream<Event> get onChildRemoved => _ref.onChildRemoved.map(_toEvent);
 
   @override
-  Future<Snapshot> once() async => _toSnapshot(await _ref.once());
+  Future<void> loadInitialData() => _ref.once();
 
   @override
   FirebaseReference push() => FirebaseReference(_ref.push());
@@ -33,11 +33,7 @@ class FirebaseReference implements Reference {
   Future<void> remove() => _ref.remove();
 
   @override
-  Future<void> set(dynamic value, {dynamic priority}) =>
-      _ref.set(value, priority: priority);
-
-  @override
-  Future<void> update(Map<String, dynamic> value) => _ref.update(value);
+  Future<void> set(Map<String, dynamic> value) => _ref.set(value);
 
   Event _toEvent(firebase.Event e) => Event(_toSnapshot(e.snapshot));
 

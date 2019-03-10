@@ -59,8 +59,7 @@ class MapAdapter<T> {
       // Moves are ignored on purpose, we keep our own sort order.
     ];
 
-    // Wait for initial load.
-    await _ref.once();
+    await _ref.loadInitialData();
     _subject.add(_map);
   }
 

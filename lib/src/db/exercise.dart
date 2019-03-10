@@ -6,6 +6,7 @@ import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/storage/interface/reference.dart';
 import 'package:rxdart/rxdart.dart';
 
+/// The database of [PlannedExercise] that the user can perform.
 class ExerciseDb {
   final Reference _db;
   final MapAdapter<PlannedExercise> _adapter;
@@ -38,19 +39,19 @@ class ExerciseDb {
       ..hasWeight = false
       ..increase = 0.0
       ..decreaseFactor = 0.0);
-    await ref.update(exercise.toJson());
+    await ref.set(exercise.toJson());
   }
 
   /// Updates data for an existing exercise.
   Future<void> update(PlannedExercise value) async {
-    await _db.child(value.id).update(value.toJson());
+    await _db.child(value.id).set(value.toJson());
   }
 
   /// Initializes the planned exercise database with sample data.
   Future<void> _populateInitial() async {
     for (final exercise in initial_data.exercises) {
       final ref = _db.push();
-      await ref.update((exercise.rebuild((b) => b..id = ref.key)).toJson());
+      await ref.set((exercise.rebuild((b) => b..id = ref.key)).toJson());
     }
   }
 }

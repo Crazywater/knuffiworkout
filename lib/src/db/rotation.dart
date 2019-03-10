@@ -36,12 +36,12 @@ class RotationDb {
     final workout = Day((b) => b
       ..id = ref.key
       ..plannedExerciseIds.add(exercises.keys.first));
-    await ref.update(workout.toJson());
+    await ref.set(workout.toJson());
   }
 
   /// Updates an existing [Day] with new data.
   Future<void> update(Day value) async {
-    await _db.child(value.id).update(value.toJson());
+    await _db.child(value.id).set(value.toJson());
   }
 
   /// Moves a [Day] one day earlier the rotation.
@@ -101,8 +101,7 @@ class RotationDb {
 
     for (final workout in rotation) {
       final reference = _db.push();
-      reference
-          .update((workout.rebuild((b) => b..id = reference.key)).toJson());
+      reference.set((workout.rebuild((b) => b..id = reference.key)).toJson());
     }
   }
 
