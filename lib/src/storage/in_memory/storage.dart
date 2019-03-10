@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:knuffiworkout/src/storage/interface/event.dart';
+import 'package:knuffiworkout/src/storage/interface/reference.dart';
+import 'package:knuffiworkout/src/storage/interface/storage.dart';
 
-/// Fake in-memory implementation of a Firebase database.
-class FakeFirebase {
+/// In-memory storage for use in testing.
+///
+/// The contents of this storage are deleted as the app exits.
+class InMemoryStorage implements Storage {
   final _data = <String, dynamic>{};
 
   /// Sets the value of [path] to [value].
@@ -73,23 +77,23 @@ class FakeFirebase {
   Stream<_Event> get _events => _eventController.stream;
   final _eventController = StreamController<_Event>.broadcast();
 
-  /// Reference to the root of this database.
-  FakeReference root() => FakeReference(this, []);
+  /// Reference to the root of this storage.
+  InMemoryReference get root => InMemoryReference(this, []);
 }
 
-/// Fake implementation of a Firebase [DatabaseReference].
-class FakeReference implements DatabaseReference {
-  final FakeFirebase _db;
+/// [InMemoryStorage] implementation of [Reference].
+class InMemoryReference implements Reference {
+  final InMemoryStorage _db;
   final List<String> _path;
 
-  FakeReference(this._db, this._path);
+  InMemoryReference(this._db, this._path);
 
   @override
   String get key => _path.last;
 
   @override
-  DatabaseReference child(String child) =>
-      FakeReference(_db, _path.toList()..addAll(child.split('/')));
+  InMemoryReference child(String child) =>
+      InMemoryReference(_db, _path.toList()..addAll(child.split('/')));
 
   @override
   Stream<Event> get onChildAdded => _events(_EventType.add);
@@ -101,12 +105,12 @@ class FakeReference implements DatabaseReference {
   Stream<Event> get onChildRemoved => _events(_EventType.remove);
 
   @override
-  Future<DataSnapshot> once() => _db._get(_path);
+  Future<Snapshot> once() async => Snapshot(_path.last, _db._get(_path));
 
   @override
-  DatabaseReference push() {
+  InMemoryReference push() {
     final key = ++_globalKey;
-    return FakeReference(_db, _path.toList()..add('fake-$key'));
+    return InMemoryReference(_db, _path.toList()..add('fake-$key'));
   }
 
   @override
@@ -127,102 +131,18 @@ class FakeReference implements DatabaseReference {
     await Future(() {});
   }
 
-  @override
-  Stream<Event> get onValue => throw UnimplementedError();
-
-  @override
-  DatabaseReference parent() => throw UnimplementedError();
-
-  @override
-  Stream<Event> get onChildMoved => throw UnimplementedError();
-
-  @override
-  Map<String, dynamic> buildArguments() => throw UnimplementedError();
-
-  @override
-  Query endAt(value, {String key}) => throw UnimplementedError();
-
-  @override
-  Query equalTo(value, {String key}) => throw UnimplementedError();
-
-  @override
-  Future<void> keepSynced(bool value) => throw UnimplementedError();
-
-  @override
-  Query limitToFirst(int limit) => throw UnimplementedError();
-
-  @override
-  Query limitToLast(int limit) => throw UnimplementedError();
-
-  @override
-  OnDisconnect onDisconnect() => throw UnimplementedError();
-
-  @override
-  Query orderByChild(String key) => throw UnimplementedError();
-
-  @override
-  Query orderByKey() => throw UnimplementedError();
-
-  @override
-  Query orderByPriority() => throw UnimplementedError();
-
-  @override
-  Query orderByValue() => throw UnimplementedError();
-
-  @override
-  DatabaseReference reference() => this;
-
-  @override
-  DatabaseReference root() => throw UnimplementedError();
-
-  @override
-  Future<TransactionResult> runTransaction(
-          TransactionHandler transactionHandler,
-          {Duration timeout = const Duration(seconds: 5)}) =>
-      throw UnimplementedError();
-
-  @override
-  Future<void> setPriority(priority) => throw UnimplementedError();
-
-  @override
-  Query startAt(value, {String key}) => throw UnimplementedError();
-
-  @override
-  String get path => _path.join('/');
-
   /// All events of type [type] that are for direct children of this reference.
   Stream<Event> _events(_EventType type) => _db._events
       .where((e) =>
           e.type == type &&
           e.path.length == _path.length + 1 &&
           ListEquality().equals(e.path.take(_path.length).toList(), _path))
-      .map((e) => e.toFirebaseEvent());
-}
-
-/// Fake implementation of a Firebase [DataSnapshot].
-class FakeDataSnapshot implements DataSnapshot {
-  @override
-  final String key;
-  @override
-  final dynamic value;
-
-  FakeDataSnapshot(this.key, this.value);
-}
-
-/// Fake implementation of a Firebase [Event].
-class FakeEvent implements Event {
-  @override
-  final DataSnapshot snapshot;
-
-  FakeEvent(this.snapshot);
-
-  @override
-  String get previousSiblingKey => throw UnimplementedError();
+      .map((e) => e.toEvent());
 }
 
 int _globalKey = 0;
 
-/// A global event in [FakeFirebase].
+/// A global event in the [InMemoryStorage].
 class _Event {
   final _EventType type;
 
@@ -246,7 +166,7 @@ class _Event {
     assert((value == null) == (type == _EventType.remove));
   }
 
-  FakeEvent toFirebaseEvent() => FakeEvent(FakeDataSnapshot(path.last, value));
+  Event toEvent() => Event(Snapshot(path.last, value));
 }
 
 /// Type of an [_Event].

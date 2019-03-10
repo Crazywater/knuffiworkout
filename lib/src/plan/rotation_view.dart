@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/firebase_adapter.dart';
+import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/plan/change_list.dart';

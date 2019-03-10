@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
-import 'package:knuffiworkout/src/db/firebase_adapter.dart';
+import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/storage/interface/reference.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// The rotation of exercise days.
 class RotationDb {
-  final DatabaseReference _db;
+  final Reference _db;
   final ExerciseDb _exerciseDb;
-  final FirebaseAdapter<Day> _adapter;
+  final MapAdapter<Day> _adapter;
 
   RotationDb(this._db, this._exerciseDb)
-      : _adapter = FirebaseAdapter<Day>(_db, (e) => Day.fromJson(e),
+      : _adapter = MapAdapter<Day>(_db, (e) => Day.fromJson(e),
             comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
   /// [Day]s configured by the user.
@@ -32,7 +32,7 @@ class RotationDb {
   /// Adds a new [Day] to the rotation.
   Future<void> newDay() async {
     final exercises = await _exerciseDb.stream.first;
-    DatabaseReference ref = _db.push();
+    final ref = _db.push();
     final workout = Day((b) => b
       ..id = ref.key
       ..plannedExerciseIds.add(exercises.keys.first));

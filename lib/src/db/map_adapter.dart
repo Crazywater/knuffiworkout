@@ -2,29 +2,29 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:collection/collection.dart' show lowerBound;
-import 'package:firebase_database/firebase_database.dart';
+import 'package:knuffiworkout/src/storage/interface/reference.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 typedef T Deserializer<T>(Map json);
 
-/// Turns a Firebase [Query] into a [Stream] of sorted [FireMap]s.
+/// Turns a [Reference] into a [Stream] of sorted [FireMap]s.
 ///
 /// This adapter subscribes to any changes on the given [Query] and keeps a
 /// sorted mapping from [String] key to value in a [FireMap].
 ///
 /// On every change, the [FireMap] is updated and [stream] emits the new
 /// current state.
-class FirebaseAdapter<T> {
+class MapAdapter<T> {
   final _subject = BehaviorSubject<FireMap<T>>();
-  final Query _query;
+  final Reference _ref;
   final Deserializer<T> _deserializer;
   final Comparator<T> _comparator;
 
   List<StreamSubscription> _subscriptions;
   FireMap<T> _map;
 
-  FirebaseAdapter(this._query, this._deserializer,
+  MapAdapter(this._ref, this._deserializer,
       {@required Comparator<T> comparator})
       : _comparator = comparator;
 
@@ -44,15 +44,15 @@ class FirebaseAdapter<T> {
     _map = FireMap<T>(_comparator);
 
     _subscriptions = [
-      _query.onChildAdded.listen((event) {
+      _ref.onChildAdded.listen((event) {
         _map._add(event.snapshot.key, _deserializer(event.snapshot.value));
         _subject.add(_map);
       }),
-      _query.onChildChanged.listen((event) {
+      _ref.onChildChanged.listen((event) {
         _map._update(event.snapshot.key, _deserializer(event.snapshot.value));
         _subject.add(_map);
       }),
-      _query.onChildRemoved.listen((event) {
+      _ref.onChildRemoved.listen((event) {
         _map._remove(event.snapshot.key);
         _subject.add(_map);
       }),
@@ -60,7 +60,7 @@ class FirebaseAdapter<T> {
     ];
 
     // Wait for initial load.
-    await _query.once();
+    await _ref.once();
     _subject.add(_map);
   }
 
@@ -74,7 +74,7 @@ class FirebaseAdapter<T> {
   }
 }
 
-/// A read-only sorted map that is backed by Firebase.
+/// A read-only sorted map that is backed by a [Reference].
 class FireMap<T> {
   final _map = <String, T>{};
   final _sortedKeys = <String>[];

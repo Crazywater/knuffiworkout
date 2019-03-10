@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/firebase_adapter.dart';
+import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:meta/meta.dart';
 

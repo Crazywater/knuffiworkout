@@ -1,17 +1,17 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
-import 'package:knuffiworkout/src/db/firebase_adapter.dart';
+import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/initial_data.dart' as initial_data;
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/storage/interface/reference.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ExerciseDb {
-  final DatabaseReference _db;
-  final FirebaseAdapter<PlannedExercise> _adapter;
+  final Reference _db;
+  final MapAdapter<PlannedExercise> _adapter;
 
   ExerciseDb(this._db)
-      : _adapter = FirebaseAdapter<PlannedExercise>(
+      : _adapter = MapAdapter<PlannedExercise>(
             _db, (e) => PlannedExercise.fromJson(e),
             comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
@@ -30,7 +30,7 @@ class ExerciseDb {
 
   /// Creates a new exercise.
   Future<void> createNew() async {
-    DatabaseReference ref = _db.push();
+    final ref = _db.push();
     final exercise = PlannedExercise((b) => b
       ..id = ref.key
       ..name = 'Ear shrugs'
@@ -49,7 +49,7 @@ class ExerciseDb {
   /// Initializes the planned exercise database with sample data.
   Future<void> _populateInitial() async {
     for (final exercise in initial_data.exercises) {
-      DatabaseReference ref = _db.push();
+      final ref = _db.push();
       await ref.update((exercise.rebuild((b) => b..id = ref.key)).toJson());
     }
   }

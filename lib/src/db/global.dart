@@ -1,7 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
 import 'package:knuffiworkout/src/db/rotation.dart';
 import 'package:knuffiworkout/src/db/workout.dart';
+import 'package:knuffiworkout/src/storage/interface/reference.dart';
 
 /// The top level database, containing all of a user's data.
 class Database {
@@ -19,7 +19,7 @@ Database get db => _db;
 Database _db;
 
 /// Initializes [db] for Firebase.
-Future<void> initializeDb(String userId, DatabaseReference rootRef) async {
+Future<void> initializeDb(String userId, Reference rootRef) async {
   final userRef = rootRef.child('user/$userId');
 
   final exerciseRef = userRef.child('exercise');

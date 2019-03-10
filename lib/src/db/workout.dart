@@ -1,21 +1,21 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
-import 'package:knuffiworkout/src/db/firebase_adapter.dart';
+import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/db/rotation.dart';
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/storage/interface/reference.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Workouts performed by the user.
 class WorkoutDb {
-  final DatabaseReference _db;
+  final Reference _db;
   final ExerciseDb _exerciseDb;
   final RotationDb _rotationDb;
-  final FirebaseAdapter<Workout> _adapter;
+  final MapAdapter<Workout> _adapter;
 
   WorkoutDb(this._db, this._exerciseDb, this._rotationDb)
-      : _adapter = FirebaseAdapter<Workout>(_db, (e) => Workout.fromJson(e),
+      : _adapter = MapAdapter<Workout>(_db, (e) => Workout.fromJson(e),
             comparator: (w1, w2) => w2.date.compareTo(w1.date));
 
   Observable<FireMap<Workout>> get stream => _adapter.stream;
