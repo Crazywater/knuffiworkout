@@ -6,8 +6,6 @@ import 'package:knuffiworkout/src/storage/interface/reference.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-typedef T Deserializer<T>(Map json);
-
 /// Turns a [Reference] into a [Stream] of sorted [FireMap]s.
 ///
 /// This adapter subscribes to any changes on the given [Query] and keeps a
@@ -18,7 +16,7 @@ typedef T Deserializer<T>(Map json);
 class MapAdapter<T> {
   final _subject = BehaviorSubject<FireMap<T>>();
   final Reference _ref;
-  final Deserializer<T> _deserializer;
+  final T Function(Map) _deserializer;
   final Comparator<T> _comparator;
 
   List<StreamSubscription> _subscriptions;

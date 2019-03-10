@@ -101,7 +101,7 @@ class _View {
   final WidgetBuilder builder;
 
   /// How to render a FAB for the view, if any.
-  final _FabBuilder fabBuilder;
+  final FloatingActionButton Function(BuildContext) fabBuilder;
 
   _View(this.title, this.drawerConfig, this.builder, {this.fabBuilder});
 }
@@ -120,5 +120,3 @@ FloatingActionButton renderFab({void Function() onPressed}) =>
         backgroundColor: fabColor,
         child: Icon(Icons.add),
         onPressed: onPressed);
-
-typedef FloatingActionButton _FabBuilder(BuildContext context);

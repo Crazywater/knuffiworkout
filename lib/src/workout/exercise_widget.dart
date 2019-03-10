@@ -10,11 +10,6 @@ import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:knuffiworkout/src/workout/weight_widget.dart';
 import 'package:meta/meta.dart';
 
-/// Callback invoked when a [WorkoutSet] changes.
-///
-/// [setIndex] is the index of [set] in the list of sets for the exercise.
-typedef void SetSaver(int setIndex, WorkoutSet set);
-
 /// Widget to edit data about an exercise, consisting of:
 ///
 /// * Information about the weight used for the exercise, if any
@@ -23,8 +18,12 @@ typedef void SetSaver(int setIndex, WorkoutSet set);
 ///   it is done already.
 class ExerciseWidget extends StatelessWidget {
   final ExerciseWrapper exercise;
-  final SetSaver saveSet;
-  final ExerciseSaver saveExercise;
+
+  /// Callback invoked when a [WorkoutSet] changes.
+  ///
+  /// [setIndex] is the index of [set] in the list of sets for the exercise.
+  final void Function(int setIndex, WorkoutSet set) saveSet;
+  final void Function(Exercise) saveExercise;
   final bool showsSuggestion;
 
   ExerciseWidget(this.exercise,

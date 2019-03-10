@@ -33,7 +33,7 @@ class ProgressMeasure {
   final String name;
 
   /// How to extract this measure from an [Exercise].
-  final _MeasureFunction function;
+  final double Function(Exercise) function;
 
   /// Whether this measure only makes sense if the exercise is weighted.
   final bool needsWeight;
@@ -68,8 +68,6 @@ class ProgressMeasure {
     return _predictOneRepMax(reps, weight);
   }, needsWeight: true);
 }
-
-typedef _MeasureFunction = double Function(Exercise);
 
 /// Factors to translate n reps of some weight into the one rep max.
 final _repsToOneRepMax = [

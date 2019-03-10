@@ -5,8 +5,6 @@ import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:meta/meta.dart';
 
-typedef Widget ItemToWidget<T>(BuildContext context, List<T> items, int index);
-
 /// Renders a list from the contents of a [FireMap].
 ///
 /// If the given [FireMap] grows in size, the list scrolls down to the end.
@@ -16,7 +14,8 @@ class ChangeList<T> extends StatefulWidget {
   final Stream<FireMap<T>> changes;
 
   /// Function that renders a single item in the [FireMap] as a [Widget].
-  final ItemToWidget<T> widgetBuilder;
+  final Widget Function(BuildContext context, List<T> items, int index)
+      widgetBuilder;
 
   ChangeList({@required this.changes, @required this.widgetBuilder});
 

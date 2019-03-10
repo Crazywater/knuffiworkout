@@ -3,8 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:knuffiworkout/src/main_screen.dart';
 import 'package:knuffiworkout/src/workout/edit_screen.dart';
 
-typedef WidgetBuilder PathParser(List<String> pathSegments);
-
 /// App routes (entirely different screens).
 class AppRouteItem {
   AppRouteItem({@required this.path, this.buildWidget, this.pathParser});
@@ -17,7 +15,7 @@ class AppRouteItem {
 
   /// Parses the given path segments and returns a [WidgetBuilder] for this
   /// path.
-  final PathParser pathParser;
+  final WidgetBuilder Function(List<String> pathSegments) pathParser;
 
   /// Navigates to this route.
   ///
