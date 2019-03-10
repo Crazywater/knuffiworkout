@@ -1,24 +1,24 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/routes.dart';
+import 'package:knuffiworkout/src/login/firebase.dart';
 import 'package:knuffiworkout/src/storage/firebase/storage.dart';
 import 'package:knuffiworkout/src/storage/interface/storage.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart' as colors;
 import 'package:knuffiworkout/src/widgets/splash_screen.dart';
 
 void main() {
-  runApp(App(FirebaseStorage()));
+  runApp(App(FirebaseStorage(), logInWithFirebase));
 }
 
 /// The main Knuffiworkout app widget.
 class App extends StatefulWidget {
   final Storage storage;
+  final Future<String> Function() logIn;
 
-  const App(this.storage, {Key key}) : super(key: key);
+  const App(this.storage, this.logIn, {Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AppState();
@@ -34,9 +34,9 @@ class _AppState extends State<App> {
   }
 
   Future<void> _init() async {
-    final user = await _initializeUser();
+    final userId = await widget.logIn();
 
-    await initializeDb(user.uid, widget.storage.root);
+    await initializeDb(userId, widget.storage.root);
 
     setState(() {
       isInitialized = true;
@@ -67,16 +67,3 @@ class _AppState extends State<App> {
   }
 }
 
-Future<FirebaseUser> _initializeUser() async {
-  final currentUser = await FirebaseAuth.instance.currentUser();
-  if (currentUser != null) return currentUser;
-  final googleSignIn = GoogleSignIn();
-  var googleUser = await googleSignIn.signInSilently();
-  if (googleUser == null) {
-    googleUser = await googleSignIn.signIn();
-  }
-  final googleAuth = await googleUser.authentication;
-  final credential = GoogleAuthProvider.getCredential(
-      idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-  return await FirebaseAuth.instance.signInWithCredential(credential);
-}
