@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 
 /// [TextStyle] for headers of cards.
-TextStyle get headerTextStyle => TextStyle(fontSize: 20.0);
+TextStyle get headerTextStyle => TextStyle(fontSize: 20.0, color: titleColor);
 
 /// [TextStyle] for medium size texts.
 TextStyle get mediumTextStyle => TextStyle(fontSize: 16.0);

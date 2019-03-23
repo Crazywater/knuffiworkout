@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
@@ -38,7 +39,7 @@ class ExerciseWidget extends StatelessWidget {
     final plannedExercise = exercise.plannedExercise;
 
     final header = <Widget>[
-      Text(plannedExercise.name, style: headerTextStyle),
+      Intransparent(Text(plannedExercise.name, style: headerTextStyle)),
     ];
     if (plannedExercise.hasWeight) {
       header.add(WeightWidget(exercise.exercise, saveExercise,

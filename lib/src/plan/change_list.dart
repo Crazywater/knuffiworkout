@@ -46,6 +46,7 @@ class _ChangeListState<T> extends State<ChangeList<T>> {
           widget.widgetBuilder(context, items, index),
       shrinkWrap: true,
       controller: _scrollController,
+      padding: EdgeInsets.only(top: 4.0, bottom: 8.0),
     );
   }
 

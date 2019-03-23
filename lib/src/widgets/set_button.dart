@@ -23,7 +23,6 @@ class SetButton extends StatelessWidget {
     return Material(
       color: backgroundColor,
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      elevation: isElevated ? 8.0 : 0.0,
       child: InkWell(
         onTap: onTap,
         onLongPress: onLongPress,

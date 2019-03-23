@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/formatter.dart';
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 
@@ -22,8 +23,10 @@ class WeightWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[
-      Text('Weight: ${formatWeight(_exercise.weight)}',
-          style: editableHeaderStyle)
+      Intransparent(
+        Text('Weight: ${formatWeight(_exercise.weight)}',
+            style: editableHeaderStyle),
+      )
     ];
 
     if (showsSuggestion && (_exercise.suggestion > 0.0)) {

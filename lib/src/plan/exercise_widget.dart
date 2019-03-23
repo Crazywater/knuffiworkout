@@ -5,6 +5,7 @@ import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/formatter.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
+import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/mini_fab.dart';
 import 'package:knuffiworkout/src/widgets/set_button.dart';
@@ -91,7 +92,7 @@ class ExerciseWidget extends StatelessWidget {
 
   Widget _editableText(String text,
           {@required GestureTapCallback onTap, @required TextStyle style}) =>
-      InkWell(child: Text(text, style: style), onTap: onTap);
+      Intransparent(InkWell(child: Text(text, style: style), onTap: onTap));
 
   Future<void> _editName(PlannedExercise exercise, BuildContext context) async {
     final oldValue = exercise.name;

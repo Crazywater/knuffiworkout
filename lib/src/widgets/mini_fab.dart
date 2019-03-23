@@ -6,14 +6,13 @@ import 'package:meta/meta.dart';
 ///
 /// Used to add things inline.
 class MiniFab extends StatelessWidget {
-  final Color color;
   final GestureTapCallback onTap;
 
-  MiniFab({this.color, @required this.onTap});
+  MiniFab({@required this.onTap});
 
   @override
   Widget build(BuildContext context) => Material(
-        color: color ?? primarySwatch,
+        color: miniFabColor,
         type: MaterialType.circle,
         elevation: 8.0,
         child: InkWell(

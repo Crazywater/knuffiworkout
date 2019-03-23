@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/widgets/colors.dart';
+import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/mini_fab.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
@@ -66,29 +68,33 @@ class DayWidget extends StatelessWidget {
         header: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: headerStyle),
-            Row(children: [
+            Intransparent(Text(title, style: headerStyle)),
+            Intransparent(Row(children: [
               IconButton(
                 icon: const Icon(Icons.arrow_upward),
+                color: titleColor,
                 onPressed: () {
                   db.rotation.moveUp(_day);
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.arrow_downward),
+                color: titleColor,
                 onPressed: () {
                   db.rotation.moveDown(_day);
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.delete),
+                color: titleColor,
                 onPressed: () {
                   db.rotation.remove(_day);
                 },
               )
-            ]),
+            ])),
           ],
         ),
+        headerHeight: 48.0,
         children: children);
   }
 

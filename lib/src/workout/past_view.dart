@@ -4,6 +4,7 @@ import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/formatter.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/routes.dart';
+import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/stream_widget.dart';
@@ -25,6 +26,7 @@ class PastView extends StatelessWidget {
       itemCount: workoutList.length,
       itemBuilder: (BuildContext context, int index) => _renderWorkout(
           workoutKeys[index], workoutList[index], exercises, context),
+      padding: EdgeInsets.only(top: 4.0, bottom: 8.0),
     );
   }
 
@@ -69,7 +71,8 @@ class PastView extends StatelessWidget {
     final renderedDate = formatDate(date);
     final weekday = _weekdays[date.weekday - 1];
 
-    return Text('$weekday — $renderedDate', style: headerTextStyle);
+    return Intransparent(
+        Text('$weekday — $renderedDate', style: headerTextStyle));
   }
 }
 

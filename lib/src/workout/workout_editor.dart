@@ -42,7 +42,10 @@ class WorkoutEditor extends StatelessWidget {
       children.add(widget);
     }
 
-    return ListView(children: children);
+    return ListView(
+      children: children,
+      padding: EdgeInsets.only(top: 4.0, bottom: 8.0),
+    );
   }
 
   void _save(Workout newWorkout) {
