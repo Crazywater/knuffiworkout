@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:knuffiworkout/src/widgets/colors.dart';
+import 'package:knuffiworkout/src/widgets/rounded_rectangle.dart';
 import 'package:meta/meta.dart';
-import 'package:knuffiworkout/src/widgets/colors.dart' as colors;
 
 /// A Knufficard specific styled card.
 ///
@@ -38,49 +39,16 @@ class KnuffiCard extends StatelessWidget {
       children: cardContent,
     );
 
-    // TODO: Is there an easier way to overlay with an InkWell?
-    final paint = CustomPaint(
-      painter: _BorderPainter(headerHeight),
-      child: onTap == null
-          ? cardChild
-          : Stack(children: [
-              Positioned.fill(
-                  top: headerHeight / 2.0,
-                  child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                          onTap: onTap,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(8.0))))),
-              cardChild,
-            ]),
+    final rectangle = RoundedRectangle(
+      onTap: onTap,
+      headerHeight: headerHeight,
+      strokeColor: borderColor,
+      child: cardChild,
     );
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      child: paint,
+      child: rectangle,
     );
   }
-}
-
-/// Paints a custom rounded-rectangle border for a card.
-class _BorderPainter extends CustomPainter {
-  final double headerHeight;
-
-  _BorderPainter(this.headerHeight);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = colors.borderColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
-    final rect = Rect.fromPoints(
-        Offset(0.0, headerHeight / 2), size.bottomRight(Offset.zero));
-    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(8.0));
-    canvas.drawRRect(rrect, paint);
-  }
-
-  @override
-  bool shouldRepaint(_BorderPainter old) => old.headerHeight != headerHeight;
 }

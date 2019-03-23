@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/formatter.dart';
 import 'package:knuffiworkout/src/model.dart';
+import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
 import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
@@ -84,7 +85,7 @@ class ExerciseWidget extends StatelessWidget {
         padding: EdgeInsets.only(right: 8.0),
         child: SetButton(
             reps: reps,
-            isElevated: true,
+            color: SetColor.none,
             onTap: () {
               _editReps(exercise, index, reps, context);
             }));

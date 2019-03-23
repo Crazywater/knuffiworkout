@@ -51,7 +51,7 @@ class PastView extends StatelessWidget {
 
     final sets = <Widget>[];
     for (final set in exercise.sets) {
-      var style = TextStyle(color: colorForSet(set));
+      var style = TextStyle(color: SetColor.forSet(set).textColor);
       sets.add(Text('${set.actualReps}', style: style));
       if (!identical(set, exercise.sets.last)) {
         sets.add(Text('/'));

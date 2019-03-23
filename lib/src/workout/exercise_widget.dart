@@ -70,8 +70,7 @@ class ExerciseWidget extends StatelessWidget {
   Widget _renderSet(int index, WorkoutSet set, BuildContext context) =>
       SetButton(
         reps: set.completed ? set.actualReps : set.plannedReps,
-        color: colorForSet(set),
-        isElevated: !set.completed,
+        color: SetColor.forSet(set),
         onTap: () {
           final builder = set.toBuilder();
           builder.completed = !set.completed;

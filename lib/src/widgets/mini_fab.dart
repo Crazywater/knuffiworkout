@@ -14,7 +14,6 @@ class MiniFab extends StatelessWidget {
   Widget build(BuildContext context) => Material(
         color: miniFabColor,
         type: MaterialType.circle,
-        elevation: 8.0,
         child: InkWell(
           onTap: onTap,
           child: Padding(
