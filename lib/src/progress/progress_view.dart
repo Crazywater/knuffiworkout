@@ -61,6 +61,24 @@ class _ProgressViewState extends State<ProgressView> {
         ? ProgressMeasure.all
         : ProgressMeasure.unweighted;
 
+    final exerciseSelector = Container(
+      width: 200.0,
+      child: DropdownButton<String>(
+          isExpanded: true,
+          items: exerciseIds
+              .map((id) => DropdownMenuItem(
+                    value: id,
+                    child: Text(
+                      exercises[id].name,
+                    ),
+                  ))
+              .toList(),
+          onChanged: (exerciseId) {
+            _updateState((b) => b.exerciseId = exerciseId);
+          },
+          value: viewModel.exerciseId),
+    );
+
     final measureSelector = availableMeasures.length == 1
         ? Text(viewModel.measure.name)
         : DropdownButton<ProgressMeasure>(
@@ -82,17 +100,7 @@ class _ProgressViewState extends State<ProgressView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                DropdownButton<String>(
-                    items: exerciseIds
-                        .map((id) => DropdownMenuItem(
-                              value: id,
-                              child: Text(exercises[id].name),
-                            ))
-                        .toList(),
-                    onChanged: (exerciseId) {
-                      _updateState((b) => b.exerciseId = exerciseId);
-                    },
-                    value: viewModel.exerciseId),
+                exerciseSelector,
                 measureSelector,
               ],
             ),
