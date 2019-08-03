@@ -5,13 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Turns an object of type [A] into a [Widget].
-typedef Widget WidgetBuilder1<A>(A a, BuildContext context);
+typedef WidgetBuilder1<A> = Widget Function(A a, BuildContext context);
 
 /// Turns two objects of type [A] and [B] into a [Widget].
-typedef Widget WidgetBuilder2<A, B>(A a, B b, BuildContext context);
+typedef WidgetBuilder2<A, B> = Widget Function(A a, B b, BuildContext context);
 
 /// Turns three objects of type [A], [B] and [C] into a [Widget].
-typedef Widget WidgetBuilder3<A, B, C>(A a, B b, C c, BuildContext context);
+typedef WidgetBuilder3<A, B, C> = Widget Function(
+    A a, B b, C c, BuildContext context);
 
 /// Listens to an [Observable] and turns its contents into a [Widget] using
 /// the given [WidgetBuilder1].

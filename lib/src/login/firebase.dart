@@ -17,7 +17,7 @@ Future<String> logInWithFirebase() async {
   final googleAuth = await googleUser.authentication;
   final credential = firebase.GoogleAuthProvider.getCredential(
       idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-  final user =
+  final result =
       await firebase.FirebaseAuth.instance.signInWithCredential(credential);
-  return user.uid;
+  return result.user.uid;
 }

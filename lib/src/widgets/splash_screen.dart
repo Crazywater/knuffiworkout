@@ -46,11 +46,11 @@ class SplashScreenState extends State<SplashScreen>
         child: AnimatedBuilder(
           animation: _animation,
           builder: (a, b) => Transform(
-                transform: Matrix4.translationValues(
-                    0.0, -100.0 * math.sin(math.pi * _animation.value), 0.0),
-                alignment: Alignment.center,
-                child: image,
-              ),
+            transform: Matrix4.translationValues(
+                0.0, -100.0 * math.sin(math.pi * _animation.value), 0.0),
+            alignment: Alignment.center,
+            child: image,
+          ),
         ),
       ),
     );

@@ -22,18 +22,18 @@ Future<String> showEditDialog(String title, String text, BuildContext context,
   final value = await showDialog(
     context: context,
     builder: (_) => AlertDialog(
-          title: Text(title),
-          content: TextField(
-              autofocus: true,
-              controller: controller,
-              keyboardType: keyboardType,
-              onSubmitted: submit,
-              decoration: decoration),
-          actions: [
-            FlatButton(child: Text("OK"), onPressed: submit),
-          ],
-          contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
-        ),
+      title: Text(title),
+      content: TextField(
+          autofocus: true,
+          controller: controller,
+          keyboardType: keyboardType,
+          onSubmitted: submit,
+          decoration: decoration),
+      actions: [
+        FlatButton(child: Text("OK"), onPressed: submit),
+      ],
+      contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
+    ),
   );
 
   return value;

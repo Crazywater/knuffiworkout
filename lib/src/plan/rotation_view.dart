@@ -24,12 +24,11 @@ class _RotationViewState extends State<RotationView> {
     return ChangeList<Day>(
       changes: db.rotation.stream,
       widgetBuilder: (context, rotation, index) => DayWidget(
-            exercises,
-            rotation,
-            index,
-            db.workouts
-                .nextRotationIndexFor(workouts.values.toList(), rotation),
-          ),
+        exercises,
+        rotation,
+        index,
+        db.workouts.nextRotationIndexFor(workouts.values.toList(), rotation),
+      ),
     );
   }
 }

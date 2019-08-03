@@ -45,16 +45,16 @@ class _MainScreenState extends State<MainScreen> {
         _DrawerConfig(icon: Icons.settings),
         (_) => PlanExercisesView(),
         fabBuilder: (_) => renderFab(onPressed: () {
-              db.exercises.createNew();
-            }),
+          db.exercises.createNew();
+        }),
       ),
       _View(
         "Rotation",
         _DrawerConfig(icon: Icons.event),
         (_) => RotationView(),
         fabBuilder: (_) => renderFab(onPressed: () {
-              db.rotation.newDay();
-            }),
+          db.rotation.newDay();
+        }),
       ),
     ];
     _drawerItems = _views.map(_createDrawerItem).toList();

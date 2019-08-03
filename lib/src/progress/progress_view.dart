@@ -17,7 +17,7 @@ class ProgressView extends StatefulWidget {
 
 class _ProgressViewState extends State<ProgressView> {
   final _viewModel =
-      BehaviorSubject<ProgressViewModel>(seedValue: ProgressViewModel.defaults);
+      BehaviorSubject<ProgressViewModel>.seeded(ProgressViewModel.defaults);
 
   @override
   Widget build(BuildContext context) => StreamWidget3(

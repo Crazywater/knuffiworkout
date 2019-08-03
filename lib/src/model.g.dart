@@ -6,19 +6,6 @@ part of 'model.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line
-// ignore_for_file: annotate_overrides
-// ignore_for_file: avoid_annotating_with_dynamic
-// ignore_for_file: avoid_catches_without_on_clauses
-// ignore_for_file: avoid_returning_this
-// ignore_for_file: lines_longer_than_80_chars
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: prefer_expression_function_bodies
-// ignore_for_file: sort_constructors_first
-// ignore_for_file: unnecessary_const
-// ignore_for_file: unnecessary_new
-// ignore_for_file: test_types_in_equals
-
 Serializers _$serializersInternal = (Serializers().toBuilder()
       ..add(Day.serializer)
       ..add(Exercise.serializer)
@@ -50,7 +37,7 @@ class _$DaySerializer implements StructuredSerializer<Day> {
   final String wireName = 'Day';
 
   @override
-  Iterable serialize(Serializers serializers, Day object,
+  Iterable<Object> serialize(Serializers serializers, Day object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -64,7 +51,7 @@ class _$DaySerializer implements StructuredSerializer<Day> {
   }
 
   @override
-  Day deserialize(Serializers serializers, Iterable serialized,
+  Day deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = DayBuilder();
 
@@ -81,7 +68,7 @@ class _$DaySerializer implements StructuredSerializer<Day> {
         case 'plannedExerciseIds':
           result.plannedExerciseIds.replace(serializers.deserialize(value,
                   specifiedType: const FullType(BuiltList, [FullType(String)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
       }
     }
@@ -98,7 +85,7 @@ class _$PlannedExerciseSerializer
   final String wireName = 'PlannedExercise';
 
   @override
-  Iterable serialize(Serializers serializers, PlannedExercise object,
+  Iterable<Object> serialize(Serializers serializers, PlannedExercise object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -123,7 +110,8 @@ class _$PlannedExerciseSerializer
   }
 
   @override
-  PlannedExercise deserialize(Serializers serializers, Iterable serialized,
+  PlannedExercise deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = PlannedExerciseBuilder();
 
@@ -145,7 +133,7 @@ class _$PlannedExerciseSerializer
           result.sets.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, [FullType(PlannedSet)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'hasWeight':
           result.hasWeight = serializers.deserialize(value,
@@ -173,7 +161,7 @@ class _$PlannedSetSerializer implements StructuredSerializer<PlannedSet> {
   final String wireName = 'PlannedSet';
 
   @override
-  Iterable serialize(Serializers serializers, PlannedSet object,
+  Iterable<Object> serialize(Serializers serializers, PlannedSet object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'reps',
@@ -184,7 +172,7 @@ class _$PlannedSetSerializer implements StructuredSerializer<PlannedSet> {
   }
 
   @override
-  PlannedSet deserialize(Serializers serializers, Iterable serialized,
+  PlannedSet deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = PlannedSetBuilder();
 
@@ -212,7 +200,7 @@ class _$WorkoutSetSerializer implements StructuredSerializer<WorkoutSet> {
   final String wireName = 'WorkoutSet';
 
   @override
-  Iterable serialize(Serializers serializers, WorkoutSet object,
+  Iterable<Object> serialize(Serializers serializers, WorkoutSet object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'plannedReps',
@@ -230,7 +218,7 @@ class _$WorkoutSetSerializer implements StructuredSerializer<WorkoutSet> {
   }
 
   @override
-  WorkoutSet deserialize(Serializers serializers, Iterable serialized,
+  WorkoutSet deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = WorkoutSetBuilder();
 
@@ -266,7 +254,7 @@ class _$ExerciseSerializer implements StructuredSerializer<Exercise> {
   final String wireName = 'Exercise';
 
   @override
-  Iterable serialize(Serializers serializers, Exercise object,
+  Iterable<Object> serialize(Serializers serializers, Exercise object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'plannedExerciseId',
@@ -285,12 +273,11 @@ class _$ExerciseSerializer implements StructuredSerializer<Exercise> {
         ..add(serializers.serialize(object.suggestion,
             specifiedType: const FullType(double)));
     }
-
     return result;
   }
 
   @override
-  Exercise deserialize(Serializers serializers, Iterable serialized,
+  Exercise deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = ExerciseBuilder();
 
@@ -308,7 +295,7 @@ class _$ExerciseSerializer implements StructuredSerializer<Exercise> {
           result.sets.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, [FullType(WorkoutSet)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'weight':
           result.weight = serializers.deserialize(value,
@@ -332,7 +319,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
   final String wireName = 'Workout';
 
   @override
-  Iterable serialize(Serializers serializers, Workout object,
+  Iterable<Object> serialize(Serializers serializers, Workout object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'date',
@@ -349,7 +336,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
   }
 
   @override
-  Workout deserialize(Serializers serializers, Iterable serialized,
+  Workout deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = WorkoutBuilder();
 
@@ -367,7 +354,7 @@ class _$WorkoutSerializer implements StructuredSerializer<Workout> {
           result.exercises.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, [FullType(Exercise)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'rotationIndex':
           result.rotationIndex = serializers.deserialize(value,
@@ -386,7 +373,7 @@ class _$Day extends Day {
   @override
   final BuiltList<String> plannedExerciseIds;
 
-  factory _$Day([void updates(DayBuilder b)]) =>
+  factory _$Day([void Function(DayBuilder) updates]) =>
       (DayBuilder()..update(updates)).build();
 
   _$Day._({this.id, this.plannedExerciseIds}) : super._() {
@@ -399,7 +386,7 @@ class _$Day extends Day {
   }
 
   @override
-  Day rebuild(void updates(DayBuilder b)) =>
+  Day rebuild(void Function(DayBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -460,7 +447,7 @@ class DayBuilder implements Builder<Day, DayBuilder> {
   }
 
   @override
-  void update(void updates(DayBuilder b)) {
+  void update(void Function(DayBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -499,7 +486,7 @@ class _$PlannedExercise extends PlannedExercise {
   @override
   final double decreaseFactor;
 
-  factory _$PlannedExercise([void updates(PlannedExerciseBuilder b)]) =>
+  factory _$PlannedExercise([void Function(PlannedExerciseBuilder) updates]) =>
       (PlannedExerciseBuilder()..update(updates)).build();
 
   _$PlannedExercise._(
@@ -531,7 +518,7 @@ class _$PlannedExercise extends PlannedExercise {
   }
 
   @override
-  PlannedExercise rebuild(void updates(PlannedExerciseBuilder b)) =>
+  PlannedExercise rebuild(void Function(PlannedExerciseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -626,7 +613,7 @@ class PlannedExerciseBuilder
   }
 
   @override
-  void update(void updates(PlannedExerciseBuilder b)) {
+  void update(void Function(PlannedExerciseBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -662,7 +649,7 @@ class _$PlannedSet extends PlannedSet {
   @override
   final int reps;
 
-  factory _$PlannedSet([void updates(PlannedSetBuilder b)]) =>
+  factory _$PlannedSet([void Function(PlannedSetBuilder) updates]) =>
       (PlannedSetBuilder()..update(updates)).build();
 
   _$PlannedSet._({this.reps}) : super._() {
@@ -672,7 +659,7 @@ class _$PlannedSet extends PlannedSet {
   }
 
   @override
-  PlannedSet rebuild(void updates(PlannedSetBuilder b)) =>
+  PlannedSet rebuild(void Function(PlannedSetBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -722,7 +709,7 @@ class PlannedSetBuilder implements Builder<PlannedSet, PlannedSetBuilder> {
   }
 
   @override
-  void update(void updates(PlannedSetBuilder b)) {
+  void update(void Function(PlannedSetBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -742,7 +729,7 @@ class _$WorkoutSet extends WorkoutSet {
   @override
   final bool completed;
 
-  factory _$WorkoutSet([void updates(WorkoutSetBuilder b)]) =>
+  factory _$WorkoutSet([void Function(WorkoutSetBuilder) updates]) =>
       (WorkoutSetBuilder()..update(updates)).build();
 
   _$WorkoutSet._({this.plannedReps, this.actualReps, this.completed})
@@ -759,7 +746,7 @@ class _$WorkoutSet extends WorkoutSet {
   }
 
   @override
-  WorkoutSet rebuild(void updates(WorkoutSetBuilder b)) =>
+  WorkoutSet rebuild(void Function(WorkoutSetBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -826,7 +813,7 @@ class WorkoutSetBuilder implements Builder<WorkoutSet, WorkoutSetBuilder> {
   }
 
   @override
-  void update(void updates(WorkoutSetBuilder b)) {
+  void update(void Function(WorkoutSetBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -852,7 +839,7 @@ class _$Exercise extends Exercise {
   @override
   final double suggestion;
 
-  factory _$Exercise([void updates(ExerciseBuilder b)]) =>
+  factory _$Exercise([void Function(ExerciseBuilder) updates]) =>
       (ExerciseBuilder()..update(updates)).build();
 
   _$Exercise._(
@@ -870,7 +857,7 @@ class _$Exercise extends Exercise {
   }
 
   @override
-  Exercise rebuild(void updates(ExerciseBuilder b)) =>
+  Exercise rebuild(void Function(ExerciseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -948,7 +935,7 @@ class ExerciseBuilder implements Builder<Exercise, ExerciseBuilder> {
   }
 
   @override
-  void update(void updates(ExerciseBuilder b)) {
+  void update(void Function(ExerciseBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -986,7 +973,7 @@ class _$Workout extends Workout {
   @override
   final int rotationIndex;
 
-  factory _$Workout([void updates(WorkoutBuilder b)]) =>
+  factory _$Workout([void Function(WorkoutBuilder) updates]) =>
       (WorkoutBuilder()..update(updates)).build();
 
   _$Workout._({this.date, this.exercises, this.rotationIndex}) : super._() {
@@ -1002,7 +989,7 @@ class _$Workout extends Workout {
   }
 
   @override
-  Workout rebuild(void updates(WorkoutBuilder b)) =>
+  Workout rebuild(void Function(WorkoutBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1071,7 +1058,7 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
   }
 
   @override
-  void update(void updates(WorkoutBuilder b)) {
+  void update(void Function(WorkoutBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1099,3 +1086,5 @@ class WorkoutBuilder implements Builder<Workout, WorkoutBuilder> {
     return _$result;
   }
 }
+
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
