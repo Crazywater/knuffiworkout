@@ -62,7 +62,7 @@ class _ProgressViewState extends State<ProgressView> {
         : ProgressMeasure.unweighted;
 
     final exerciseSelector = Container(
-      width: 200.0,
+      width: 200,
       child: DropdownButton<String>(
           isExpanded: true,
           items: exerciseIds
@@ -92,26 +92,30 @@ class _ProgressViewState extends State<ProgressView> {
             value: viewModel.measure);
 
     return Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                exerciseSelector,
-                measureSelector,
-              ],
-            ),
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            exerciseSelector,
+          ],
+        ),
+        Expanded(
+            child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: dataPoints.isEmpty
+                    ? Text('No data yet')
+                    : ProgressChart(dataPoints))),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [measureSelector],
           ),
-          Expanded(
-              child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: dataPoints.isEmpty
-                      ? Text('No data yet')
-                      : ProgressChart(dataPoints))),
-        ]);
+        )
+      ],
+    );
   }
 
   void _updateState(updates(ProgressViewModelBuilder b)) {
