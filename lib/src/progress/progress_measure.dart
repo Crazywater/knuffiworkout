@@ -1,31 +1,5 @@
 import 'dart:math' show min;
-
-import 'package:built_value/built_value.dart';
 import 'package:knuffiworkout/src/model.dart';
-
-part 'progress_view_model.g.dart';
-
-/// Local state of the progress view.
-abstract class ProgressViewModel
-    implements Built<ProgressViewModel, ProgressViewModelBuilder> {
-  /// Default [ProgressViewModel] when opening the view.
-  static final ProgressViewModel defaults =
-      (ProgressViewModelBuilder()..measure = ProgressMeasure.oneRepMax).build();
-
-  /// Currently selected [ProgressMeasure].
-  ProgressMeasure get measure;
-
-  /// Currently selected exercise id.
-  ///
-  /// `null` if the user hasn't selected any yet.
-  @nullable
-  String get exerciseId;
-
-  ProgressViewModel._();
-
-  factory ProgressViewModel([updates(ProgressViewModelBuilder b)]) =
-      _$ProgressViewModel;
-}
 
 /// A way to measure progress, shown in the chart.
 class ProgressMeasure {
@@ -52,13 +26,11 @@ class ProgressMeasure {
       needsWeight: true);
 
   /// Total reps, across sets.
-  static final reps = ProgressMeasure('Total reps', (exercise) {
-    int reps = 0;
-    for (final set in exercise.sets) {
-      reps += set.actualReps;
-    }
-    return reps.toDouble();
-  });
+  static final reps = ProgressMeasure(
+      'Total reps',
+      (exercise) => exercise.sets
+          .fold(0, (reps, set) => reps + set.actualReps)
+          .toDouble());
 
   /// Estimated one-rep max, based on reps and weight of the last set.
   static final oneRepMax = ProgressMeasure('Estimated 1-rep max', (exercise) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:knuffiworkout/src/progress/progress_measure.dart';
 
 /// A point in the [ProgressChart].
 class ChartPoint {
@@ -12,20 +13,20 @@ class ChartPoint {
 
 /// A simple line chart widget.
 class ProgressChart extends StatelessWidget {
-  final List<charts.Series<dynamic, DateTime>> _series;
+  final List<charts.Series<ChartPoint, DateTime>> _series;
 
-  ProgressChart(List<ChartPoint> points) : _series = _toSeries(points);
+  ProgressChart(this._series);
 
   @override
-  Widget build(BuildContext context) => charts.TimeSeriesChart(_series);
+  Widget build(BuildContext context) => charts.TimeSeriesChart(_series,
+      behaviors: [charts.SeriesLegend(horizontalFirst: false)]);
 }
 
-List<charts.Series<dynamic, DateTime>> _toSeries(List<ChartPoint> points) {
-  return [
-    charts.Series(
-        id: 'series',
+/// Creates a charts_flutter [charts.Series] for a line in the chart.
+charts.Series<ChartPoint, DateTime> createSeries(
+        ProgressMeasure measure, List<ChartPoint> points) =>
+    charts.Series<ChartPoint, DateTime>(
+        id: measure.name,
         data: points,
         domainFn: (point, _) => point.date,
-        measureFn: (point, _) => point.value)
-  ];
-}
+        measureFn: (point, _) => point.value);
