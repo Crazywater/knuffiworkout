@@ -18,8 +18,17 @@ class ProgressChart extends StatelessWidget {
   ProgressChart(this._series);
 
   @override
-  Widget build(BuildContext context) => charts.TimeSeriesChart(_series,
-      behaviors: [charts.SeriesLegend(horizontalFirst: false)]);
+  Widget build(BuildContext context) =>
+      OrientationBuilder(builder: _buildChart);
+
+  Widget _buildChart(BuildContext context, Orientation orientation) {
+    final legendPosition = orientation == Orientation.landscape
+        ? charts.BehaviorPosition.start
+        : charts.BehaviorPosition.top;
+    return charts.TimeSeriesChart(_series, behaviors: [
+      charts.SeriesLegend(position: legendPosition, horizontalFirst: false)
+    ]);
+  }
 }
 
 /// Creates a charts_flutter [charts.Series] for a line in the chart.
