@@ -10,6 +10,7 @@ import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/mini_fab.dart';
 import 'package:knuffiworkout/src/widgets/set_button.dart';
+import 'package:knuffiworkout/src/widgets/set_group.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:meta/meta.dart';
 
@@ -24,20 +25,18 @@ class ExerciseWidget extends StatelessWidget {
     final header = _editableText(exercise.name,
         style: editableHeaderStyle, onTap: () => _editName(exercise, context));
 
-    final setEditor = <Widget>[];
-    for (var i = 0; i < exercise.sets.length; i++) {
-      setEditor.add(_renderSet(exercise, i, context));
-    }
-    if (exercise.sets.length < 5) {
-      setEditor.add(MiniFab(onTap: () {
+    final sets = [
+      for (var i = 0; i < exercise.sets.length; i++)
+        _renderSet(exercise, i, context),
+      MiniFab(onTap: () {
         _addSet(exercise);
-      }));
-    }
+      }),
+    ];
 
-    final editors = <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: setEditor,
+    final editors = [
+      SetGroup(
+        sets: sets,
+        alignment: WrapAlignment.spaceBetween,
       ),
       InkWell(
         child: Row(
@@ -54,6 +53,7 @@ class ExerciseWidget extends StatelessWidget {
         ),
       )
     ];
+
     if (exercise.hasWeight) {
       final increaseText = 'Increase by ${formatWeight(exercise.increase)}';
       final decreaseText =

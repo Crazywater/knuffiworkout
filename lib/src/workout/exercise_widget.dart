@@ -7,6 +7,7 @@ import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/widgets/edit_dialog.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/set_button.dart';
+import 'package:knuffiworkout/src/widgets/set_group.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:knuffiworkout/src/workout/weight_widget.dart';
 import 'package:meta/meta.dart';
@@ -47,11 +48,6 @@ class ExerciseWidget extends StatelessWidget {
     }
 
     final sets = exercise.exercise.sets;
-    final setWidgets = <Widget>[];
-    for (var i = 0; i < sets.length; i++) {
-      final set = sets[i];
-      setWidgets.add(_renderSet(i, set, context));
-    }
 
     return KnuffiCard(
         header: Row(
@@ -60,10 +56,12 @@ class ExerciseWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
         children: [
-          Row(
-            children: setWidgets,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-          )
+          SetGroup(
+            sets: [
+              for (var i = 0; i < sets.length; i++)
+                _renderSet(i, sets[i], context)
+            ],
+          ),
         ]);
   }
 

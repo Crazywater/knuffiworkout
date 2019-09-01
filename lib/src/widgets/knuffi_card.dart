@@ -30,7 +30,10 @@ class KnuffiCard extends StatelessWidget {
       Padding(
         padding:
             EdgeInsets.only(top: 4.0, left: 16.0, right: 16.0, bottom: 12.0),
-        child: Column(children: children),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: children,
+        ),
       )
     ];
 
