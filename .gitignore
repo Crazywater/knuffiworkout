@@ -6,9 +6,11 @@
 .pub/
 build/
 ios/.generated/
+ios/Flutter/flutter_export_environment.sh
 packages
 pubspec.lock
 .flutter-plugins
+.flutter-plugins-dependencies
 key.jks
 android/app/google-services.json
 android/key.properties

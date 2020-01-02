@@ -103,14 +103,14 @@ class WorkoutDb {
   }
 
   /// Persists a new [Workout] to the database.
-  Future<void> push(Workout workout) async {
-    await _db.push().set(workout.toJson());
-  }
+  Future<void> push(Workout workout) => _db.push().set(workout.toJson());
 
   /// Updates an existing [Workout].
-  Future<void> save(String key, Workout workout) async {
-    await _db.child(key).set(workout.toJson());
-  }
+  Future<void> save(String key, Workout workout) =>
+      _db.child(key).set(workout.toJson());
+
+  /// Deletes a [Workout].
+  Future<void> delete(String key) => _db.child(key).remove();
 
   /// Returns the most recently performed [Exercise] of the given ID.
   Future<Exercise> _lastExercise(String exerciseId) async {
