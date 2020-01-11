@@ -5,7 +5,6 @@ import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/db/rotation.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/storage/interface/reference.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Workouts performed by the user.
 class WorkoutDb {
@@ -18,7 +17,7 @@ class WorkoutDb {
       : _adapter = MapAdapter<Workout>(_db, (e) => Workout.fromJson(e),
             comparator: (w1, w2) => w2.date.compareTo(w1.date));
 
-  Observable<FireMap<Workout>> get stream => _adapter.stream;
+  Stream<FireMap<Workout>> get stream => _adapter.stream;
 
   /// Initializes the workout database.
   ///

@@ -4,7 +4,6 @@ import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/initial_data.dart' as initial_data;
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/storage/interface/reference.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// The database of [PlannedExercise] that the user can perform.
 class ExerciseDb {
@@ -17,7 +16,7 @@ class ExerciseDb {
             comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
   /// [PlannedExercise]s saved by the user.
-  Observable<FireMap<PlannedExercise>> get stream => _adapter.stream;
+  Stream<FireMap<PlannedExercise>> get stream => _adapter.stream;
 
   /// Initializes the database of planned exercises from Firebase.
   ///

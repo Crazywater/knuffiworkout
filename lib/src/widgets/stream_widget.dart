@@ -14,12 +14,12 @@ typedef WidgetBuilder2<A, B> = Widget Function(A a, B b, BuildContext context);
 typedef WidgetBuilder3<A, B, C> = Widget Function(
     A a, B b, C c, BuildContext context);
 
-/// Listens to an [Observable] and turns its contents into a [Widget] using
+/// Listens to a [Stream] and turns its contents into a [Widget] using
 /// the given [WidgetBuilder1].
 ///
-/// Updates automatically whenever the [Observable] emits a new value.
+/// Updates automatically whenever the [Stream] emits a new value.
 class StreamWidget1<A> extends StatelessWidget {
-  final Observable<A> _stream;
+  final Stream<A> _stream;
   final WidgetBuilder1<A> _builder;
 
   StreamWidget1(Stream<A> stream, WidgetBuilder1<A> builder)
@@ -36,17 +36,17 @@ class StreamWidget1<A> extends StatelessWidget {
       });
 }
 
-/// Listens to two [Observable]s and turns their contents into a [Widget] using
+/// Listens to two [Stream]s and turns their contents into a [Widget] using
 /// the given [WidgetBuilder2].
 ///
-/// Updates automatically whenever the [Observable]s emit new values.
+/// Updates automatically whenever the [Stream]s emit new values.
 class StreamWidget2<A, B> extends StatelessWidget {
-  final Observable<List> _combinedStream;
+  final Stream<List> _combinedStream;
   final WidgetBuilder2<A, B> _builder;
 
   StreamWidget2(Stream<A> s1, Stream<B> s2, WidgetBuilder2<A, B> builder)
       : this._(
-          Observable.combineLatest2(s1, s2, (e1, e2) => [e1, e2]),
+          Rx.combineLatest2(s1, s2, (e1, e2) => [e1, e2]),
           builder,
         );
 
@@ -61,18 +61,18 @@ class StreamWidget2<A, B> extends StatelessWidget {
       });
 }
 
-/// Listens to three [Observable]s and turns their contents into a [Widget]
-/// using  the given [WidgetBuilder3].
+/// Listens to three [Stream]s and turns their contents into a [Widget]
+/// using the given [WidgetBuilder3].
 ///
-/// Updates automatically whenever the [Observable]s emit new values.
+/// Updates automatically whenever the [Stream]s emit new values.
 class StreamWidget3<A, B, C> extends StatelessWidget {
-  final Observable<List> _combinedStream;
+  final Stream<List> _combinedStream;
   final WidgetBuilder3<A, B, C> _builder;
 
   StreamWidget3(
       Stream<A> s1, Stream<B> s2, Stream<C> s3, WidgetBuilder3<A, B, C> builder)
       : this._(
-          Observable.combineLatest3(s1, s2, s3, (e1, e2, e3) => [e1, e2, e3]),
+          Rx.combineLatest3(s1, s2, s3, (e1, e2, e3) => [e1, e2, e3]),
           builder,
         );
 

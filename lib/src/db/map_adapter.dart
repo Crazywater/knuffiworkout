@@ -26,12 +26,12 @@ class MapAdapter<T> {
       {@required Comparator<T> comparator})
       : _comparator = comparator;
 
-  /// An [Observable] which emits the full state of the [Query] in a [FireMap]
+  /// A [Stream] which emits the full state of the [Query] in a [FireMap]
   /// on every change.
   ///
   /// This stream fires once on subscription with the current state, and then
   /// again on every change.
-  Observable<FireMap<T>> get stream => _subject.stream;
+  Stream<FireMap<T>> get stream => _subject.stream;
 
   /// Starts listening on the given query.
   ///
