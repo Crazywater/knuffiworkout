@@ -1,11 +1,11 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/stream_widget.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/progress/progress_chart.dart';
 import 'package:knuffiworkout/src/progress/progress_measure.dart';
-import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 
 /// Shows the progress over time.
 class ProgressView extends StatefulWidget {
@@ -25,8 +25,8 @@ class _ProgressViewState extends State<ProgressView> {
   Widget build(BuildContext context) =>
       StreamWidget2(db.workouts.stream, db.exercises.stream, _rebuild);
 
-  Widget _rebuild(FireMap<Workout> workouts, FireMap<PlannedExercise> exercises,
-      BuildContext context) {
+  Widget _rebuild(KnuffiMap<Workout> workouts,
+      KnuffiMap<PlannedExercise> exercises, BuildContext context) {
     final exerciseIds = exercises.keys.toList();
     exerciseIds.sort(
         (left, right) => exercises[left].name.compareTo(exercises[right].name));

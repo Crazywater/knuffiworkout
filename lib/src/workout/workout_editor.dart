@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/stream_widget.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
-import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:knuffiworkout/src/workout/exercise_widget.dart';
 
 /// Editor to edit a new or existing workout.
@@ -23,7 +23,7 @@ class WorkoutEditor extends StatelessWidget {
       StreamWidget1(db.exercises.stream, _rebuild);
 
   Widget _rebuild(
-      FireMap<PlannedExercise> plannedExercises, BuildContext context) {
+      KnuffiMap<PlannedExercise> plannedExercises, BuildContext context) {
     final children = <Widget>[];
     for (var i = 0; i < _workout.exercises.length; i++) {
       final exercise = _workout.exercises[i];

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:knuffimap/firebase/storage.dart';
+import 'package:knuffimap/storage.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/routes.dart';
 import 'package:knuffiworkout/src/login/firebase.dart';
-import 'package:knuffiworkout/src/storage/firebase/storage.dart';
-import 'package:knuffiworkout/src/storage/interface/storage.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart' as colors;
 import 'package:knuffiworkout/src/widgets/splash_screen.dart';
 

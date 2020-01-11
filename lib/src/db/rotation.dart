@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/reference.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/model.dart';
-import 'package:knuffiworkout/src/storage/interface/reference.dart';
 
 /// The rotation of exercise days.
 class RotationDb {
@@ -16,7 +16,7 @@ class RotationDb {
             comparator: (e1, e2) => e1.id.compareTo(e2.id));
 
   /// [Day]s configured by the user.
-  Stream<FireMap<Day>> get stream => _adapter.stream;
+  Stream<KnuffiMap<Day>> get stream => _adapter.stream;
 
   /// Initializes the workout rotation database.
   ///

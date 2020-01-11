@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
+import 'package:knuffimap/knuffimap.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
@@ -12,7 +12,7 @@ import 'package:meta/meta.dart';
 /// Renders a [Day] in the rotation configuration.
 class DayWidget extends StatelessWidget {
   /// All [PlannedExercise]s.
-  final FireMap<PlannedExercise> _exercises;
+  final KnuffiMap<PlannedExercise> _exercises;
 
   /// Values of [_exercises], but sorted by name.
   ///

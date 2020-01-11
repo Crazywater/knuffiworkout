@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:knuffimap/in_memory/storage.dart';
 import 'package:knuffiworkout/main.dart';
 import 'package:knuffiworkout/src/app_drawer.dart';
-import 'package:knuffiworkout/src/storage/in_memory/storage.dart';
 import 'package:knuffiworkout/src/login/fake.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';

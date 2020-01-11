@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/reference.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
 import 'package:knuffiworkout/src/db/rotation.dart';
 import 'package:knuffiworkout/src/model.dart';
-import 'package:knuffiworkout/src/storage/interface/reference.dart';
 
 /// Workouts performed by the user.
 class WorkoutDb {
@@ -17,7 +17,7 @@ class WorkoutDb {
       : _adapter = MapAdapter<Workout>(_db, (e) => Workout.fromJson(e),
             comparator: (w1, w2) => w2.date.compareTo(w1.date));
 
-  Stream<FireMap<Workout>> get stream => _adapter.stream;
+  Stream<KnuffiMap<Workout>> get stream => _adapter.stream;
 
   /// Initializes the workout database.
   ///
@@ -61,7 +61,7 @@ class WorkoutDb {
   ///
   /// [lastExercise] may be null if there is none.
   double _computeSuggestion(
-      Exercise lastExercise, FireMap<PlannedExercise> plannedExercises) {
+      Exercise lastExercise, KnuffiMap<PlannedExercise> plannedExercises) {
     final lastWeight = lastExercise?.weight ?? 0.0;
     if (lastWeight == 0.0) return lastWeight;
 

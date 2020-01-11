@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/stream_widget.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/plan/change_list.dart';
 import 'package:knuffiworkout/src/plan/day_widget.dart';
-import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 
 /// Configuration view for the rotation.
 ///
@@ -19,8 +19,8 @@ class _RotationViewState extends State<RotationView> {
   Widget build(BuildContext context) =>
       StreamWidget2(db.exercises.stream, db.workouts.stream, _rebuild);
 
-  Widget _rebuild(FireMap<PlannedExercise> exercises, FireMap<Workout> workouts,
-      BuildContext context) {
+  Widget _rebuild(KnuffiMap<PlannedExercise> exercises,
+      KnuffiMap<Workout> workouts, BuildContext context) {
     return ChangeList<Day>(
       changes: db.rotation.stream,
       widgetBuilder: (context, rotation, index) => DayWidget(

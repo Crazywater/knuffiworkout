@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
-import 'package:knuffiworkout/src/widgets/stream_widget.dart';
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/stream_widget.dart';
 import 'package:meta/meta.dart';
 
-/// Renders a list from the contents of a [FireMap].
+/// Renders a list from the contents of a [KnuffiMap].
 ///
-/// If the given [FireMap] grows in size, the list scrolls down to the end.
+/// If the given [KnuffiMap] grows in size, the list scrolls down to the end.
 /// This is useful for views where the user can add items to the list.
 class ChangeList<T> extends StatefulWidget {
   /// The items to render.
-  final Stream<FireMap<T>> changes;
+  final Stream<KnuffiMap<T>> changes;
 
-  /// Function that renders a single item in the [FireMap] as a [Widget].
+  /// Function that renders a single item in the [KnuffiMap] as a [Widget].
   final Widget Function(BuildContext context, List<T> items, int index)
       widgetBuilder;
 
@@ -29,9 +29,9 @@ class _ChangeListState<T> extends State<ChangeList<T>> {
 
   @override
   Widget build(BuildContext context) =>
-      StreamWidget1<FireMap<T>>(widget.changes, _rebuild);
+      StreamWidget1<KnuffiMap<T>>(widget.changes, _rebuild);
 
-  Widget _rebuild(FireMap<T> snapshot, BuildContext context) {
+  Widget _rebuild(KnuffiMap<T> snapshot, BuildContext context) {
     final newItems = snapshot.values.toList();
     bool scrollToEnd = items != null && newItems.length > items.length;
     items = newItems;

@@ -1,7 +1,7 @@
+import 'package:knuffimap/reference.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
 import 'package:knuffiworkout/src/db/rotation.dart';
 import 'package:knuffiworkout/src/db/workout.dart';
-import 'package:knuffiworkout/src/storage/interface/reference.dart';
 
 /// The top level database, containing all of a user's data.
 class Database {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:knuffiworkout/src/db/map_adapter.dart';
+import 'package:knuffimap/knuffimap.dart';
+import 'package:knuffimap/stream_widget.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
-import 'package:knuffiworkout/src/widgets/stream_widget.dart';
 import 'package:knuffiworkout/src/workout/workout_editor.dart';
 
 /// View for the current workout.
@@ -38,7 +38,7 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
     }
   }
 
-  Widget _rebuild(FireMap<Workout> workouts, BuildContext context) {
+  Widget _rebuild(KnuffiMap<Workout> workouts, BuildContext context) {
     final now = DateTime.now();
     final today = _toDay(now);
 
