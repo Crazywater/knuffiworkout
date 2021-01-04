@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// Signs in the user for Firebase using Google sign in.
@@ -6,7 +7,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 /// Returns the signed-in Firebase user id.
 /// If they're already signed in, nothing happens and the user ID is recycled.
 Future<String> logInWithFirebase() async {
-  final currentUser = await firebase.FirebaseAuth.instance.currentUser();
+  await Firebase.initializeApp();
+  final currentUser = FirebaseAuth.instance.currentUser;
   if (currentUser != null) return currentUser.uid;
 
   final googleSignIn = GoogleSignIn();
@@ -15,9 +17,8 @@ Future<String> logInWithFirebase() async {
     googleUser = await googleSignIn.signIn();
   }
   final googleAuth = await googleUser.authentication;
-  final credential = firebase.GoogleAuthProvider.getCredential(
+  final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-  final result =
-      await firebase.FirebaseAuth.instance.signInWithCredential(credential);
+  final result = await FirebaseAuth.instance.signInWithCredential(credential);
   return result.user.uid;
 }

@@ -33,7 +33,7 @@ class ExerciseWidget extends StatelessWidget {
       }),
     ];
 
-    final editors = [
+    final editors = <Widget>[
       SetGroup(
         sets: sets,
         alignment: WrapAlignment.spaceBetween,
