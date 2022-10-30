@@ -7,7 +7,6 @@ import 'package:knuffiworkout/src/progress/progress_view.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/workout/current_view.dart';
 import 'package:knuffiworkout/src/workout/past_view.dart';
-import 'package:meta/meta.dart';
 
 /// A screen that shows either the current workout or past workouts, selectable
 /// via a drawer.

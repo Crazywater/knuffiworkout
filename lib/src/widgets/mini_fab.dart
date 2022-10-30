@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
-import 'package:meta/meta.dart';
 
 /// A mini-version of the floating action button.
 ///

@@ -7,7 +7,6 @@ import 'package:knuffiworkout/src/widgets/intransparent.dart';
 import 'package:knuffiworkout/src/widgets/knuffi_card.dart';
 import 'package:knuffiworkout/src/widgets/mini_fab.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
-import 'package:meta/meta.dart';
 
 /// Renders a [Day] in the rotation configuration.
 class DayWidget extends StatelessWidget {

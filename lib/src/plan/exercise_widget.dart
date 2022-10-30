@@ -12,7 +12,6 @@ import 'package:knuffiworkout/src/widgets/mini_fab.dart';
 import 'package:knuffiworkout/src/widgets/set_button.dart';
 import 'package:knuffiworkout/src/widgets/set_group.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
-import 'package:meta/meta.dart';
 
 /// Renders a [PlannedExercise] in the exercise configuration.
 class ExerciseWidget extends StatelessWidget {

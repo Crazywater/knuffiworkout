@@ -30,7 +30,7 @@ Future<String> showEditDialog(String title, String text, BuildContext context,
           onSubmitted: submit,
           decoration: decoration),
       actions: [
-        FlatButton(child: Text("OK"), onPressed: submit),
+        TextButton(child: Text("OK"), onPressed: submit),
       ],
       contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
     ),

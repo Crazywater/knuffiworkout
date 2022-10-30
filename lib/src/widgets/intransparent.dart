@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// Makes a widget non-transparent by adding a canvas color background.
 ///

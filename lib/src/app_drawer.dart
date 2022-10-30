@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
-import 'package:meta/meta.dart';
 
 /// An entry in the [AppDrawer].
 class DrawerItem {

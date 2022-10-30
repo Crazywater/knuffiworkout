@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/widgets/rounded_rectangle.dart';
-import 'package:meta/meta.dart';
 
 /// Renders a set as a button.
 class SetButton extends StatelessWidget {

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:knuffimap/knuffimap.dart';
 import 'package:knuffimap/stream_widget.dart';
-import 'package:meta/meta.dart';
 
 /// Renders a list from the contents of a [KnuffiMap].
 ///

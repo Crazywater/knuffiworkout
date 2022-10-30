@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:knuffiworkout/src/main_screen.dart';
 import 'package:knuffiworkout/src/workout/edit_screen.dart';
 

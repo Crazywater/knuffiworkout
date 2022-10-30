@@ -20,10 +20,10 @@ Future<bool> showConfirmationDialog({
       title: Text(title),
       content: Padding(padding: EdgeInsets.only(top: 8.0), child: Text(text)),
       actions: [
-        FlatButton(
+        TextButton(
             child: Text(confirmButtonText),
             onPressed: () => navigator.pop(true)),
-        FlatButton(
+        TextButton(
             child: Text(cancelButtonText),
             onPressed: () => navigator.pop(false)),
       ],

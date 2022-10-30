@@ -10,7 +10,6 @@ import 'package:knuffiworkout/src/widgets/set_button.dart';
 import 'package:knuffiworkout/src/widgets/set_group.dart';
 import 'package:knuffiworkout/src/widgets/typography.dart';
 import 'package:knuffiworkout/src/workout/weight_widget.dart';
-import 'package:meta/meta.dart';
 
 /// Widget to edit data about an exercise, consisting of:
 ///

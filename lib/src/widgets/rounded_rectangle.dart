@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// Draws a rounded rectangle, optionally clickable.
 class RoundedRectangle extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:knuffiworkout/src/widgets/colors.dart';
 import 'package:knuffiworkout/src/widgets/rounded_rectangle.dart';
-import 'package:meta/meta.dart';
 
 /// A Knufficard specific styled card.
 ///
