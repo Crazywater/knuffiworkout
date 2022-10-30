@@ -29,32 +29,86 @@ class WorkoutDb {
   /// This workout is not yet persisted to the database. To persist it, call
   /// [push].
   Future<Workout> create(DateTime date) async {
-    final plannedExercises = await _exerciseDb.stream.first;
+    final allExercises = await _exerciseDb.stream.first;
     final rotation = (await _rotationDb.stream.first).values.toList();
     final rotationIndex = await nextRotationIndex();
     final plan = rotation[rotationIndex];
 
+    final exercises = await Future.wait(
+        plan.plannedExerciseIds.map((id) => _instantiate(id, allExercises)));
+
     final workout = WorkoutBuilder()
       ..rotationIndex = rotationIndex
-      ..date = date.millisecondsSinceEpoch;
-
-    for (final id in plan.plannedExerciseIds) {
-      final lastExercise = await _lastExercise(id);
-
-      final exercise = ExerciseBuilder()
-        ..plannedExerciseId = id
-        ..weight = lastExercise?.weight ?? 0.0
-        ..suggestion = _computeSuggestion(lastExercise, plannedExercises);
-      for (final plannedSet in plannedExercises[id].sets) {
-        exercise.sets.add(WorkoutSet((b) => b
-          ..completed = false
-          ..plannedReps = plannedSet.reps
-          ..actualReps = 0));
-      }
-      workout.exercises.add(exercise.build());
-    }
+      ..date = date.millisecondsSinceEpoch
+      ..exercises.addAll(exercises);
 
     return workout.build();
+  }
+
+  /// Creates a new [Exercise] from the given [plannedExerciseId].
+  ///
+  /// Populates the exercise with weight and suggestion from the previous
+  /// exercise of the same type and sets all reps to uncompleted.
+  Future<Exercise> _instantiate(
+      String plannedExerciseId, KnuffiMap<PlannedExercise> allExercises) async {
+    final lastExercise = await _lastExercise(plannedExerciseId);
+
+    final exercise = ExerciseBuilder()
+      ..plannedExerciseId = plannedExerciseId
+      ..weight = lastExercise?.weight ?? 0.0
+      ..suggestion = _computeSuggestion(lastExercise, allExercises);
+    for (final plannedSet in allExercises[plannedExerciseId].sets) {
+      exercise.sets.add(WorkoutSet((b) => b
+        ..completed = false
+        ..plannedReps = plannedSet.reps
+        ..actualReps = 0));
+    }
+    return exercise.build();
+  }
+
+  /// Notifies the workout DB that an exercise has been added for the given day.
+  ///
+  /// If the day is the current day, updates the current exercise.
+  Future<void> planExerciseAdded(int day, String plannedExerciseId) async {
+    final allExercises = await _exerciseDb.stream.first;
+    _updateIfCurrent(day, (b) async {
+      b.exercises.add(await _instantiate(plannedExerciseId, allExercises));
+    });
+  }
+
+  /// Notifies the workout DB that an exercise has been removed for the given
+  /// day.
+  ///
+  /// If the day is the current day, updates the current exercise.
+  Future<void> planExerciseRemoved(int day, int exercise) async {
+    _updateIfCurrent(day, (b) async {
+      b.exercises.removeAt(exercise);
+    });
+  }
+
+  /// Notifies the workout DB that an exercise has changed to a different one
+  /// for the given day.
+  ///
+  /// If the day is the current day, updates the current exercise.
+  Future<void> planExerciseChanged(
+      int day, int exercise, String newPlannedExerciseId) async {
+    final allExercises = await _exerciseDb.stream.first;
+    _updateIfCurrent(day, (b) async {
+      b.exercises[exercise] =
+          await _instantiate(newPlannedExerciseId, allExercises);
+    });
+  }
+
+  /// Updates the current Workout with the given [update], but only if [day]
+  /// matches the day of the current workout.
+  Future<void> _updateIfCurrent(
+      int day, Future<void> Function(WorkoutBuilder) update) async {
+    final map = await stream.first;
+    if (map.isEmpty || map.values.first.rotationIndex != day) return;
+    final key = map.keys.first;
+    final builder = map[key].toBuilder();
+    await update(builder);
+    await save(key, builder.build());
   }
 
   /// Computes the suggested weight, given the last exercise of that type.

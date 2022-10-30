@@ -19,16 +19,15 @@ class DayWidget extends StatelessWidget {
   final List<PlannedExercise> _sortedExercises;
 
   /// All [Day]s.
-  final List<Day> _workouts;
+  final List<Day> _days;
 
-  /// Index in [_workouts] to render.
+  /// Index in [_days] to render.
   final int _index;
 
-  /// Index in [_workouts] of the next exercise day.
+  /// Index in [_days] of the next exercise day.
   final int _nextRotationIndex;
 
-  DayWidget(
-      this._exercises, this._workouts, this._index, this._nextRotationIndex)
+  DayWidget(this._exercises, this._days, this._index, this._nextRotationIndex)
       : _sortedExercises = _exercises.values.toList()
           ..sort((left, right) => left.name.compareTo(right.name));
 
@@ -39,28 +38,32 @@ class DayWidget extends StatelessWidget {
       final id = _day.plannedExerciseIds[i];
       children.add(_renderExercise(
         id,
-        onChanged: (newId) {
-          db.rotation
+        onChanged: (newId) async {
+          await db.rotation
               .update(_day.rebuild((b) => b.plannedExerciseIds[i] = newId));
+          db.workouts.planExerciseChanged(_index, i, newId);
         },
-        onRemoved: () {
-          db.rotation
+        onRemoved: () async {
+          await db.rotation
               .update(_day.rebuild((b) => b.plannedExerciseIds.removeAt(i)));
+          db.workouts.planExerciseRemoved(_index, i);
         },
       ));
     }
     children.add(Row(
       children: [
-        MiniFab(onTap: () {
-          db.rotation.update(_day
-              .rebuild((b) => b.plannedExerciseIds.add(_exercises.keys.first)));
+        MiniFab(onTap: () async {
+          final exerciseId = _exercises.keys.first;
+          await db.rotation.update(
+              _day.rebuild((b) => b.plannedExerciseIds.add(exerciseId)));
+          db.workouts.planExerciseAdded(_index, exerciseId);
         }),
       ],
     ));
 
-    bool isCurrent = _index == _nextRotationIndex;
-    final title = isCurrent ? 'Day ${_index + 1} (next)' : 'Day ${_index + 1}';
-    final headerStyle = isCurrent
+    bool isNext = _index == _nextRotationIndex;
+    final title = isNext ? 'Day ${_index + 1} (next)' : 'Day ${_index + 1}';
+    final headerStyle = isNext
         ? headerTextStyle.copyWith(fontWeight: FontWeight.bold)
         : headerTextStyle;
     return KnuffiCard(
@@ -117,5 +120,5 @@ class DayWidget extends StatelessWidget {
     );
   }
 
-  Day get _day => _workouts[_index];
+  Day get _day => _days[_index];
 }
