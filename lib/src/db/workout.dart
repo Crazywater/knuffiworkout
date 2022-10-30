@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:knuffimap/knuffimap.dart';
 import 'package:knuffimap/reference.dart';
+import 'package:knuffiworkout/src/datetime/datetime.dart';
 import 'package:knuffiworkout/src/db/exercise.dart';
 import 'package:knuffiworkout/src/db/rotation.dart';
 import 'package:knuffiworkout/src/model.dart';
@@ -105,8 +106,10 @@ class WorkoutDb {
       int day, Future<void> Function(WorkoutBuilder) update) async {
     final map = await stream.first;
     if (map.isEmpty || map.values.first.rotationIndex != day) return;
+    final workout = map.values.first;
+    if (toDay(DateTime.now()) != toDay(workout.dateTime)) return;
     final key = map.keys.first;
-    final builder = map[key].toBuilder();
+    final builder = workout.toBuilder();
     await update(builder);
     await save(key, builder.build());
   }

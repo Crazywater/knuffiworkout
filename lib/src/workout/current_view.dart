@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knuffimap/knuffimap.dart';
 import 'package:knuffimap/stream_widget.dart';
+import 'package:knuffiworkout/src/datetime/datetime.dart';
 import 'package:knuffiworkout/src/db/global.dart';
 import 'package:knuffiworkout/src/model.dart';
 import 'package:knuffiworkout/src/workout/workout_editor.dart';
@@ -31,7 +32,7 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final now = DateTime.now();
-    if (_tempWorkout != null && _toDay(now) != _toDay(_tempWorkout.dateTime)) {
+    if (_tempWorkout != null && toDay(now) != toDay(_tempWorkout.dateTime)) {
       setState(() {
         _tempWorkout = null;
       });
@@ -40,14 +41,14 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
 
   Widget _rebuild(KnuffiMap<Workout> workouts, BuildContext context) {
     final now = DateTime.now();
-    final today = _toDay(now);
+    final today = toDay(now);
 
     String existingKey;
     Workout existingWorkout;
 
     workouts.forEach((key, workout) {
       if (existingKey != null) return;
-      if (_toDay(workout.dateTime) == today) {
+      if (toDay(workout.dateTime) == today) {
         existingKey = key;
         existingWorkout = workout;
       }
@@ -65,7 +66,4 @@ class _CurrentViewState extends State<CurrentView> with WidgetsBindingObserver {
     return WorkoutEditor(existingKey, existingWorkout ?? _tempWorkout,
         showsSuggestion: true);
   }
-
-  DateTime _toDay(DateTime timestamp) =>
-      DateTime(timestamp.year, timestamp.month, timestamp.day);
 }
